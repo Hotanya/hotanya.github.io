@@ -58,7 +58,7 @@ plugins:
   - jekyll-include-cache
 
 author:
-  name   : "Hotanya Ragtah
+  name   : "Hotanya Ragtah"
   avatar : "/assets/images/bio-photo.jpg"
   bio    : "Pentester 🖋️ Security Consultant 🥷🏼 Tech Enthusiast 🤖"
   links:
