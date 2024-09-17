@@ -1,15 +1,14 @@
 ---
-title: "Fantastic GraphQL Bugs And Where To Find Them"
-date: 2024-09-17 14:00:00 +1200
+title: Fantastic GraphQL Bugs And Where To Find Them
+date: '2024-09-17 18:00:00 +1200'
 categories:
   - blog
 tags:
   - GraphQL
   - AppSec
   - Hacking
+
 ---
-
-
 # Fantastic GraphQL Bugs and Where to Find Them
 ## Intro
 
