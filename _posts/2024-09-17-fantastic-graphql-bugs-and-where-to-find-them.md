@@ -1,6 +1,6 @@
 ---
 title: "Fantastic GraphQL Bugs And Where To Find Them"
-date: 2024-09-17 18:00:00 +1200
+date: 2024-09-17 14:00:00 +1200
 categories:
   - blog
 tags:
@@ -42,7 +42,7 @@ Instead of maintaining three different API endpoints, this can all be handled by
 Each system/software/etc has its own terminology, and GraphQL is no different. Here we have things called Queries and Mutations. 
 
 | ![mutation.gif](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHBxdDczY2pwOWh0YzE1YjMwdWw4M3A4eTRmbjZxd2ExendscGYxZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l2Jeg1lGgEYY0l3l6/giphy.webp) |
-|:--:|
+| :--: |
 |mutation dot gif|
 
 Nothing to be alarmed about, Queries are basically `read` operations or `GET`  
@@ -89,10 +89,8 @@ In GraphQL, you use an **introspection** query to retrieve the scheme informatio
 ```
 
 
-<div align="center" width='10%' height='20%'>
+<img src='https://github.com/Hotanya/hotanya.github.io/blob/master/images/graphqlClippy.png'>
 
-![clippy](/images/graphqlClippy.png)
-<div>
 
 Thanks ~~Clippy~~ GraphQL
 
@@ -142,7 +140,7 @@ e.g.
 
 By crafting increasingly complex queries, we can place additional load on the backend system, as seen in the images below:
 
-| ![simpleQuery](/images/simpleQuery.png) | ![complexQuery](/images/ComplexQuery.png) |
+| ![simpleQuery](/images/simpleQuery.png) | ![complexQuery](/images/complexQuery.png) |
 |:--:|:--:|
 | A Standard Query | A Recursive Query |
 
