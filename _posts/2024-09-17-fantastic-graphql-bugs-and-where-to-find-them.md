@@ -159,7 +159,7 @@ Some useful links for this:
 
 ## Insecure Direct Object Reference (IDOR)
 
-| ![idorVideo](/images/IDOR.mkv) |
+| ![idorVideo](/images/IDOR.mp4) |
 |:--:| 
 |Example of IDOR vulnerability |
 
@@ -175,7 +175,7 @@ This video shows a pretty standard blog site, with a login page and posts.  When
 
 ## Injection
 
-| ![injectionVideo](/images/injection.mkv) |
+| ![injectionVideo](/images/injection.mp4) |
 |:--:| 
 | Example of injection vulnerability |
 
