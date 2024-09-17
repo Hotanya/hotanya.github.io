@@ -159,14 +159,10 @@ Some useful links for this:
 
 ## Insecure Direct Object Reference (IDOR)
 
-<div class="embed-container">
-  <iframe
-      src="<iframe src='../../images/IDOR.mp4'>"
-      width="700"
-      height="480"
-      frameborder="0"
-      allowfullscreen="true">
-  </iframe>
+<div class="myvideo">
+   <video  style="display:block; width:100%; height:auto;" autoplay controls loop="loop">
+       <source src="/images/IDOR.mp4" type="video/mp4" />
+   </video>
 </div>
 
 This video shows a pretty standard blog site, with a login page and posts.  When we click on settings, we can only see our own info, which the API retrieves based on user ID. In this case, authorisation was not being checked, allowing us to see other user's settings. Depending on how the application is configured, this may lead to cross-tenant issues too! 
@@ -181,17 +177,11 @@ This video shows a pretty standard blog site, with a login page and posts.  When
 
 ## Injection
 
-<div class="embed-container">
-  <iframe
-      src="<iframe src='../../injection.mp4'>"
-      width="700"
-      height="480"
-      frameborder="0"
-      allowfullscreen="true">
-  </iframe>
+<div class="myvideo">
+   <video  style="display:block; width:100%; height:auto;" autoplay controls loop="loop">
+       <source src="/images/injection.mp4" type="video/mp4" />
+   </video>
 </div>
-
-
 
 The video shows how SQL injection can be possible as GraphQL by default does not do any input sanitisation. The application has an admin panel which allows the user to ping a server and returns the status code. 
 
