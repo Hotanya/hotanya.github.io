@@ -161,7 +161,7 @@ Some useful links for this:
 
 <div class="embed-container">
   <iframe
-      src="<iframe src='https://hotanya.github.io/images/IDOR.mp4'>"
+      src="<iframe src='../../images/IDOR.mp4'>"
       width="700"
       height="480"
       frameborder="0"
@@ -183,7 +183,7 @@ This video shows a pretty standard blog site, with a login page and posts.  When
 
 <div class="embed-container">
   <iframe
-      src="<iframe src='https://hotanya.github.io/images/injection.mp4'>"
+      src="<iframe src='../../injection.mp4'>"
       width="700"
       height="480"
       frameborder="0"
