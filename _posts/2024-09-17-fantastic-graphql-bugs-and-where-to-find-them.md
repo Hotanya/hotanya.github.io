@@ -159,9 +159,15 @@ Some useful links for this:
 
 ## Insecure Direct Object Reference (IDOR)
 
-|<iframe src='https://hotanya.github.io/images/IDOR.mp4'></iframe> |
-|:--:| 
-|Example of IDOR vulnerability |
+<div class="embed-container">
+  <iframe
+      src="<iframe src='https://hotanya.github.io/images/IDOR.mp4'>"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="true">
+  </iframe>
+</div>
 
 This video shows a pretty standard blog site, with a login page and posts.  When we click on settings, we can only see our own info, which the API retrieves based on user ID. In this case, authorisation was not being checked, allowing us to see other user's settings. Depending on how the application is configured, this may lead to cross-tenant issues too! 
 
@@ -175,9 +181,17 @@ This video shows a pretty standard blog site, with a login page and posts.  When
 
 ## Injection
 
-|<iframe src='https://hotanya.github.io/images/injection.mp4'></iframe> |
-|:--:| 
-| Example of injection vulnerability |
+<div class="embed-container">
+  <iframe
+      src="<iframe src='https://hotanya.github.io/images/injection.mp4'>"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="true">
+  </iframe>
+</div>
+
+
 
 The video shows how SQL injection can be possible as GraphQL by default does not do any input sanitisation. The application has an admin panel which allows the user to ping a server and returns the status code. 
 
