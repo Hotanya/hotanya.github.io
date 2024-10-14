@@ -4,6 +4,7 @@ date: '2024-10-14 15:00:00 +1200'
 categories:
   - blog
 tags:
+  - Appsec
   - APIs
   - Hacking
   - Vulnerabilities
