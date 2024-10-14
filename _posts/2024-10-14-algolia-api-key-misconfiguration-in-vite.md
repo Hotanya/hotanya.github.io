@@ -5,7 +5,6 @@ categories:
   - blog
 tags:
   - APIs
-  - AppSec
   - Hacking
   - Vulnerabilities
 
