@@ -1,6 +1,6 @@
 ---
 title: Algolia API Key Misconfiguration in Vite Repository
-date: '2024-10-14 18:00:00 +1200'
+date: '2024-10-14 15:00:00 +1200'
 categories:
   - blog
 tags:
