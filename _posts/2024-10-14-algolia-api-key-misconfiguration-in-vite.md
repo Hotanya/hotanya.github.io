@@ -1,5 +1,5 @@
 ---
-title: Algolia API Key Misconfiguration in Vite Repository
+title: Algolia API Key Misconfiguration in Vite
 date: '2024-10-14 15:00:00 +1200'
 categories:
   - blog
