@@ -1,6 +1,6 @@
 ---
 title: Algolia API Key Misconfiguration in Vite
-date: '2024-10-14 15:00:00 +1200'
+date: '2024-10-14 18:00:00 +1200'
 categories:
   - blog
 tags:
@@ -43,7 +43,7 @@ The **Algolia API Key** and **App ID** were identified in the Vite GitHub reposi
 
 By querying the permissions on the exposed key using the following command, we can confirm the extent of the issue:
 
-https://==APPID==-dsn.algolia.net/1/keys/==APIKEY==?x-algolia-application-id===APPID==&x-algolia-api-key===APIKEY==
+https://**APPID**-dsn.algolia.net/1/keys/**APIKEY**?x-algolia-application-id=**APPID**&x-algolia-api-key=**APIKEY**
 
 ```bash
 curl --url 'https://7H67QR5P0A-dsn.algolia.net/1/keys/deaab78bcdfe96b599497d25acc6460e?x-algolia-application-id=7H67QR5P0A&x-algolia-api-key=deaab78bcdfe96b599497d25acc6460e'
