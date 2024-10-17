@@ -55,7 +55,7 @@ jobs:
       - run: yarn blc ${{ github.event.inputs.url }} --ro
 
 ```
-| <img src='https://github.com/Hotanya/hotanya.github.io/blob/master/images/doraVulnerability.png' height=50% width=50%> |
+| ![Dora](/images/doraVulnerability.png) |
 |:--:|
 | Can You See The Vulnerability? 👀 |
 
