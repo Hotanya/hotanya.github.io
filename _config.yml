@@ -58,6 +58,7 @@ plugins:
   - jemoji
   - jekyll-include-cache
   - jekyll-coffeescript
+  - jekyll-algolia
 
 author:
   name   : "Hotanya Ragtah"
