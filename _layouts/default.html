@@ -5,10 +5,22 @@
 {% include copyright.html %}
 <html lang="{{ site.locale | replace: "_", "-" | default: "en" }}" class="no-js">
   <head>
+    
     {% include head.html %}
     {% include head/custom.html %}
     {% include cookiebot.html %}
     {% include analytics.html %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ page.title }}</title>
+    <link rel="shortcut icon" type="image/icon" href="/favicon.ico"/>
+    <meta name="robots" content="index, follow" />
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css' />
+    <meta property="og:site_name" content="{{ site.name }}" />
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+    {% if page.keywords %}<meta name="keywords" content="{{ page.keywords }}" />{% else %}<meta name="keywords" content="penetration testing, cybersecurity, security consultant, pentesting, hotanya">{% endif %}
+    {% if page.thumbnail %}<meta property="og:image" content="{{ site.url }}{{ page.thumbnail }}" />
+
   </head>
 
   <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}" dir="{% if site.rtl %}rtl{% else %}ltr{% endif %}">
