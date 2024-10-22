@@ -49,12 +49,15 @@ include:
 
 # Plugins (previously gems:)
 plugins:
+  - jekyll-github-metadata
+  - jekyll-seo-tag
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
   - jemoji
   - jekyll-include-cache
+  - jekyll-coffeescript
 
 author:
   name   : "Hotanya Ragtah"
