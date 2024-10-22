@@ -20,7 +20,7 @@
     <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
     {% if page.keywords %}<meta name="keywords" content="{{ page.keywords }}" />{% else %}<meta name="keywords" content="penetration testing, cybersecurity, security consultant, pentesting, hotanya">{% endif %}
     {% if page.thumbnail %}<meta property="og:image" content="{{ site.url }}{{ page.thumbnail }}" />{% endif %}
-
+    {% seo %}
   </head>
 
   <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}" dir="{% if site.rtl %}rtl{% else %}ltr{% endif %}">
