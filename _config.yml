@@ -116,3 +116,6 @@ category_archive:
 tag_archive:
   type: liquid
   path: /tags/
+portfolio:
+  type: liquid
+  path: /portfolio/
