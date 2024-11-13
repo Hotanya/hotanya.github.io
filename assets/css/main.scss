@@ -1,0 +1,33 @@
+---
+---
+
+@import "minimal-mistakes";
+
+// Override container width
+.page {
+  padding-right: 0;
+  width: 100%;
+}
+
+.page__content {
+  width: 100%;
+  padding-right: 0;
+}
+
+.wide {
+  .page {
+    width: 100%;
+    padding-right: 0;
+  }
+}
+
+// Remove extra padding on sidebar
+.sidebar {
+  padding-right: 0;
+}
+
+// Adjust archive/list view if needed
+.archive {
+  padding-right: 0;
+  width: 100%;
+}
