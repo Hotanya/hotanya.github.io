@@ -1,19 +1,6 @@
 ---
 ---
-
-/* Dark theme variables */
-.dark-theme {
-  --background-color: #1a1a1a;
-  --text-color: #e6e6e6;
-  --link-color: #58a6ff;
-}
-
-/* Light theme variables */
-.light-theme {
-  --background-color: #ffffff;
-  --text-color: #1a1a1a;
-  --link-color: #0366d6;
-}
+@import "minimal-mistakes";
 
 /* Layout adjustments */
 .page {
