@@ -56,8 +56,15 @@
     .skills-container {
       max-width: 800px;
       margin: 2rem auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      padding: 0 1rem;
+    }
+    
+    .skills-column {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 0.75rem;
     }
     
@@ -69,14 +76,21 @@
       font-size: 0.875rem;
       font-weight: 500;
       transition: all 0.2s ease;
+      text-align: center;
     }
     
     .skill-tag:hover {
       transform: translateY(-2px);
       background-color: #232d3f;
     }
+
+    /* Responsive design */
+    @media (max-width: 640px) {
+      .skills-container {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
-</head>
 <body>
 
     <!-- Skills Section -->
@@ -86,6 +100,9 @@
     <div class="skill-tag">iOS Mobile Penetration Testing</div>
     <div class="skill-tag">Android Penetration Testing</div>
     <div class="skill-tag">AWS Security Review</div>
+  </div>
+  
+  <div class="skills-column">
     <div class="skill-tag">Azure Security Review</div>
     <div class="skill-tag">Vulnerability Scanning</div>
     <div class="skill-tag">Vulnerability Management</div>
@@ -99,7 +116,7 @@
     <div class="timeline-item">
       <div class="timeline-dot"></div>
       <h3 class="timeline-title">Information Security Consultant, Kiwibank, NZ</h3>
-      <div class="timeline-period">July 2024 — Present</div>
+      <div class="timeline-period">Jul 2024 — Present</div>
       <div class="timeline-content">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       </div>
@@ -108,16 +125,58 @@
     <div class="timeline-item">
       <div class="timeline-dot"></div>
       <h3 class="timeline-title">Senior Security Consultant and Team Lead, CyberCX, NZ</h3>
-      <div class="timeline-period">Oct 2022 — July 2024</div>
+      <div class="timeline-period">Oct 2022 — Jul 2024</div>
       <div class="timeline-content">
       Delivering high quality penetration tests while assisting with pre-sales activities such as scoping of jobs and creation of statements of work. I also lead a team of junior staff and help mentor and coach them to further develop their skills.
-        • Mentoring  junior staff members as well as conducting performance reviews.
-        • Working with the wider leadership team to develop and improve business processes.
-        • Conduct interviews to hire new staff.
+        <ul>
+          <li>Mentoring  junior staff members as well as conducting performance reviews.</li>
+          <li>Working with the wider leadership team to develop and improve business processes.</li>
+          <li>Conduct interviews to hire new staff.</li>
+        </ul>
       </div>
     </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h3 class="timeline-title">Senior Security Consultant, CyberCX NZ</h3>
+      <div class="timeline-period">Aug 2022 — Oct 2022</div>
+      <div class="timeline-content">
+        Delivering high quality penetration tests while assisting with pre-sales activities such as scoping of jobs and creation of statements of work.
+      </div>
+
+      <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h3 class="timeline-title">Security Consultant, CyberCX NZ (Acquired Insomnia Security)</h3>
+      <div class="timeline-period">Mar 2021 — Aug 2022</div>
+      <div class="timeline-content">
+      Delivered high quality penetration tests including: web applications, mobile (Android and iOS), internal/external networks and cloud reviews (AWS and Azure). Involved in scoping of upcoming jobs, kickoff calls and client debriefs.
+         <ul>
+          <li>Helped create and manage the first iteration of the CyberCX NZ Associate Program. </li>
+          <li>Presented keynote at New Zealand Cyber Security Challenge 2022.</li>
+          <li>Conducted interviews to hire new staff.</li>
+        </ul>
+      </div>
+        
+ <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h3 class="timeline-title">Security Consultant, Insomnia Security</h3>
+      <div class="timeline-period">Mar 2019 — Mar 2021</div>
+      <div class="timeline-content">
+      My role as a Security Consultant involved conducting penetration tests against a wide range of items, from APIs to Web and Mobile applications to Internal & External Networks.
+      </div>
+
+<div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h3 class="timeline-title">Project Delivert Coordinator, Insomnia Security</h3>
+      <div class="timeline-period">Mar 2021 — Aug 2022</div>
+      <div class="timeline-content">
+         <ul>
+          <li>Working with clients and technical teams to facilitate the successful delivery of projects. </li>
+          <li>Translating technical requirements to a variety of technical and non-technical clients.</li>
+          <li>Keeping track of the project to ensure it stays within scope and on time. </li>
+        </ul>
+      </div>
+  
   </div>
-
-
 </body>
 </html>
