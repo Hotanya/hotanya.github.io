@@ -1,0 +1,50 @@
+<!-- _includes/custom-head.html -->
+<!-- This will automatically be included in the head section of your pages -->
+<script>
+  // Check for saved theme preference
+  const getInitialTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      return savedTheme;
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+
+  // Apply theme
+  const applyTheme = (theme) => {
+    document.body.className = `${theme}-theme`;
+  };
+
+  // Initial theme application
+  document.addEventListener('DOMContentLoaded', () => {
+    applyTheme(getInitialTheme());
+  });
+</script>
+
+<style>
+  .theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: #1a1a1a;
+    color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+
+  .light-theme .theme-toggle {
+    background: #ffffff;
+    color: #1a1a1a;
+  }
+
+  .theme-toggle:hover {
+    transform: scale(1.1);
+  }
+</style>
