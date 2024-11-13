@@ -6,6 +6,8 @@
   --background-color: #1a1a1a;
   --text-color: #e6e6e6;
   --link-color: #58a6ff;
+  --nav-background: #1a1a1a;
+  --footer-background: #1a1a1a;
 }
 
 /* Theme-specific variables */
@@ -13,12 +15,16 @@
   --background-color: #1a1a1a;
   --text-color: #e6e6e6;
   --link-color: #58a6ff;
+  --nav-background: #1a1a1a;
+  --footer-background: #1a1a1a;
 }
 
 .light-theme {
   --background-color: #ffffff;
   --text-color: #1a1a1a;
   --link-color: #0366d6;
+  --nav-background: #ffffff;
+  --footer-background: #ffffff;
 }
 
 /* Import theme after setting default variables */
@@ -30,6 +36,75 @@ body {
   color: var(--text-color);
 }
 
+/* Navigation bar overrides */
+.masthead {
+  background-color: var(--nav-background);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.greedy-nav {
+  background-color: var(--nav-background);
+
+  a {
+    color: var(--text-color);
+    &:hover {
+      color: var(--link-color);
+    }
+  }
+
+  .visible-links {
+    a {
+      &:before {
+        background: var(--link-color);
+      }
+    }
+  }
+
+  .hidden-links {
+    background: var(--nav-background);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    a {
+      color: var(--text-color);
+      &:hover {
+        color: var(--link-color);
+      }
+    }
+  }
+}
+
+/* Footer overrides */
+.page__footer {
+  background-color: var(--footer-background);
+  color: var(--text-color);
+  
+  footer {
+    background-color: var(--footer-background);
+    color: var(--text-color);
+  }
+
+  a {
+    color: var(--text-color);
+    &:hover {
+      color: var(--link-color);
+    }
+  }
+}
+
+/* Ensure all footer elements are properly colored */
+.page__footer-copyright {
+  color: var(--text-color);
+}
+
+.page__footer-follow {
+  .social-icons {
+    .fa {
+      color: var(--text-color);
+    }
+  }
+}
+
+/* Layout adjustments */
 .page {
   float: left;
   width: 100%;
@@ -46,7 +121,7 @@ body {
   padding-right: 0;
 }
 
-/* Ensure dark theme text colors */
+/* Dark theme text colors */
 .dark-theme {
   .page__content {
     color: var(--text-color);
@@ -59,4 +134,34 @@ body {
   .page__title {
     color: var(--text-color);
   }
+
+  .site-title {
+    color: var(--text-color);
+  }
+
+  .masthead__menu-item {
+    color: var(--text-color);
+  }
+}
+
+/* Search button override if you're using search */
+.search__toggle {
+  color: var(--text-color);
+  &:hover {
+    color: var(--link-color);
+  }
+}
+
+/* Navigation buttons */
+.greedy-nav__toggle {
+  background-color: var(--nav-background);
+  &:hover {
+    background-color: var(--link-color);
+  }
+}
+
+/* Mobile nav */
+.greedy-nav__toggle button {
+  background-color: var(--nav-background);
+  color: var(--text-color);
 }
