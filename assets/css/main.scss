@@ -3,6 +3,26 @@
 
 @import "minimal-mistakes";
 
+/* Dark theme variables */
+.dark-theme {
+  --background-color: #1a1a1a;
+  --text-color: #e6e6e6;
+  --link-color: #58a6ff;
+}
+
+/* Light theme variables */
+.light-theme {
+  --background-color: #ffffff;
+  --text-color: #1a1a1a;
+  --link-color: #0366d6;
+}
+
+/* General theme styles */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
 /* Layout adjustments */
 .page {
   float: left;
@@ -20,20 +40,4 @@
   padding-right: 0;
 }
 
-/* Maintain dark theme colors */
-.dark-theme {
-  --background-color: #1a1a1a;
-  --text-color: #e6e6e6;
-  --link-color: #58a6ff;
-}
-
-.light-theme {
-  --background-color: #ffffff;
-  --text-color: #1a1a1a;
-  --link-color: #0366d6;
-}
-
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
+/* Your timeline and skills styles here */
