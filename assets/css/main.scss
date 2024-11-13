@@ -1,8 +1,35 @@
 ---
 ---
+
+/* Default dark theme */
+:root {
+  --background-color: #1a1a1a;
+  --text-color: #e6e6e6;
+  --link-color: #58a6ff;
+}
+
+/* Theme-specific variables */
+.dark-theme {
+  --background-color: #1a1a1a;
+  --text-color: #e6e6e6;
+  --link-color: #58a6ff;
+}
+
+.light-theme {
+  --background-color: #ffffff;
+  --text-color: #1a1a1a;
+  --link-color: #0366d6;
+}
+
+/* Import theme after setting default variables */
 @import "minimal-mistakes";
 
-/* Layout adjustments */
+/* Override theme styles */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
 .page {
   float: left;
   width: 100%;
@@ -19,7 +46,17 @@
   padding-right: 0;
 }
 
-// Remove extra padding on sidebar
-.sidebar {
-  padding-right: 0;
+/* Ensure dark theme text colors */
+.dark-theme {
+  .page__content {
+    color: var(--text-color);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-color);
+  }
+  
+  .page__title {
+    color: var(--text-color);
+  }
 }
