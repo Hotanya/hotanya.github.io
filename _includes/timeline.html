@@ -1,0 +1,117 @@
+<html>
+<head>
+  <style>
+    /* Timeline styles */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding-left: 32px;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background: #2563eb;
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding-bottom: 3rem;
+    }
+    
+    .timeline-dot {
+      position: absolute;
+      left: -36px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #2563eb;
+      border: 2px solid #1e40af;
+    }
+    
+    .timeline-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-bottom: 0.5rem;
+    }
+    
+    .timeline-period {
+      font-size: 1rem;
+      color: #94a3b8;
+      margin-bottom: 1rem;
+    }
+    
+    .timeline-content {
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    /* Skills styles */
+    .skills-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    
+    .skill-tag {
+      background-color: #1e293b;
+      color: #ec4899;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    
+    .skill-tag:hover {
+      transform: translateY(-2px);
+      background-color: #232d3f;
+    }
+  </style>
+</head>
+<body>
+  <!-- Timeline Section -->
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h3 class="timeline-title">Information Security Consultant, Kiwibank, NZ</h3>
+      <div class="timeline-period">July 2024 — Present</div>
+      <div class="timeline-content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </div>
+    </div>
+    
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <h3 class="timeline-title">Senior Security Consultant and Team Lead, CyberCX, NZ</h3>
+      <div class="timeline-period">Oct 2022 — July 2024</div>
+      <div class="timeline-content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </div>
+    </div>
+  </div>
+
+  <!-- Skills Section -->
+  <div class="skills-container">
+    <div class="skill-tag">Web Application Penetration Testing</div>
+    <div class="skill-tag">Network Penetration Testing</div>
+    <div class="skill-tag">iOS Mobile Penetration Testing</div>
+    <div class="skill-tag">Android Penetration Testing</div>
+    <div class="skill-tag">AWS Security Review</div>
+    <div class="skill-tag">Azure Security Review</div>
+    <div class="skill-tag">Vulnerability Scanning</div>
+    <div class="skill-tag">Vulnerability Management</div>
+    <div class="skill-tag">Python</div>
+    <div class="skill-tag">Bash</div>
+    <div class="skill-tag">Active Directory</div>
+  </div>
+</body>
+</html>
