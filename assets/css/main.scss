@@ -17,12 +17,6 @@
   --link-color: #0366d6;
 }
 
-/* General theme styles */
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
 /* Layout adjustments */
 .page {
   float: left;
@@ -40,4 +34,7 @@ body {
   padding-right: 0;
 }
 
-/* Your timeline and skills styles here */
+// Remove extra padding on sidebar
+.sidebar {
+  padding-right: 0;
+}
