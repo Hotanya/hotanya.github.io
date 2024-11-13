@@ -1,0 +1,27 @@
+<!-- _includes/theme-toggle.html -->
+<button 
+  id="themeToggle" 
+  class="theme-toggle" 
+  aria-label="Toggle dark mode"
+  onclick="toggleTheme()">
+  <span id="themeIcon">🌙</span>
+</button>
+
+<script>
+  function toggleTheme() {
+    const currentTheme = document.body.className;
+    const newTheme = currentTheme === 'dark-theme' ? 'light' : 'dark';
+    const icon = document.getElementById('themeIcon');
+    
+    localStorage.setItem('theme', newTheme);
+    document.body.className = `${newTheme}-theme`;
+    icon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+  }
+
+  // Set initial icon
+  document.addEventListener('DOMContentLoaded', () => {
+    const currentTheme = document.body.className;
+    const icon = document.getElementById('themeIcon');
+    icon.textContent = currentTheme === 'dark-theme' ? '🌙' : '☀️';
+  });
+</script>
