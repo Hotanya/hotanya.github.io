@@ -1,5 +1,4 @@
 <!-- _includes/custom-head.html -->
-<!-- This will automatically be included in the head section of your pages -->
 <script>
   // Check for saved theme preference
   const getInitialTheme = () => {
@@ -7,18 +6,13 @@
     if (savedTheme) {
       return savedTheme;
     }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    // Default to dark theme if not set
+    return 'dark';
   };
 
-  // Apply theme
-  const applyTheme = (theme) => {
-    document.body.className = `${theme}-theme`;
-  };
-
-  // Initial theme application
-  document.addEventListener('DOMContentLoaded', () => {
-    applyTheme(getInitialTheme());
-  });
+  // Apply theme immediately to prevent flash
+  const initialTheme = getInitialTheme();
+  document.documentElement.className = `${initialTheme}-theme`;
 </script>
 
 <style>
@@ -31,17 +25,21 @@
     height: 40px;
     border-radius: 50%;
     border: none;
-    background: #1a1a1a;
+    background: #2d2d2d;
     color: #ffffff;
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     transition: all 0.3s ease;
     z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .light-theme .theme-toggle {
     background: #ffffff;
     color: #1a1a1a;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   }
 
   .theme-toggle:hover {
