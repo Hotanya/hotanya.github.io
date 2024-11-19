@@ -19,12 +19,22 @@
   --footer-background: #1a1a1a;
 }
 
+.dark-theme ::selection {
+  background-color: #58a6ff; /* Highlight background */
+  color: #ffffff; /* Highlight text */
+}
+
 .light-theme {
   --background-color: #ffffff;
   --text-color: #1a1a1a;
   --link-color: #0366d6;
   --nav-background: #ffffff;
   --footer-background: #ffffff;
+}
+
+.light-theme ::selection {
+  background-color: #0366d6; /* Highlight background */
+  color: #ffffff; /* Highlight text */
 }
 
 /* Import theme after setting default variables */
@@ -169,3 +179,36 @@ body {
   background-color: var(--nav-background);
   color: var(--text-color);
 }
+
+button, .btn {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--link-color);
+  padding: 0.5rem;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover, .btn:hover {
+  background-color: var(--link-color);
+  color: var(--background-color);
+}
+
+button {
+  background-color: var(--link-color);
+  color: var(--background-color);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.light-theme button {
+  background-color: var(--link-color);
+  color: var(--background-color);
+}
+
+.dark-theme button {
+  background-color: var(--link-color);
+  color: var(--text-color);
+}
+
