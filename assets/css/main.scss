@@ -158,13 +158,6 @@ body {
   }
 }
 
-/* Search button override if you're using search */
-.search__toggle {
-  color: var(--text-color);
-  &:hover {
-    color: var(--link-color);
-  }
-}
 
 /* Navigation buttons */
 .greedy-nav__toggle {
@@ -180,17 +173,16 @@ body {
   color: var(--text-color);
 }
 
-button, .btn {
+button, .btn, .skills__button {
   background-color: var(--background-color);
   color: var(--text-color);
   border: 1px solid var(--link-color);
   padding: 0.5rem;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-button:hover, .btn:hover {
+button:hover, .btn:hover, .skills__button:hover {
   background-color: var(--link-color);
   color: var(--background-color);
 }
