@@ -32,7 +32,7 @@ paginate_path: /page:num/
 timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 repository: Hotanya/hotanya.github.io
 analytics:
-  provider: "google-gtag"
+  provider: "google"
   google:
     tracking_id: "G-JS2FT39R1K"
     anonymize_ip: false # default
