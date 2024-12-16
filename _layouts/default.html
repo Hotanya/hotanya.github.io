@@ -5,12 +5,11 @@
 {% include copyright.html %}
 <html lang="{{ site.locale | replace: "_", "-" | default: "en" }}" class="no-js">
   <head>
-    
+    {% include analytics.html %}
     {% include head.html %}
     {% include custom-head.html %}
     {% include head/custom.html %}
     {% include cookiebot.html %}
-    {% include analytics.html %}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ page.title }}</title>
