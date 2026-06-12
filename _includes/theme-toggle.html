@@ -14,10 +14,15 @@
 
     window.toggleTheme = function () {
       var isLight = html.classList.contains('light-theme');
-      var next = isLight ? 'dark' : 'light';
-      html.className = next + '-theme';
-      localStorage.setItem('theme', next);
-      icon.textContent = next === 'light' ? '☀️' : '🌙';
+      if (isLight) {
+        html.classList.remove('light-theme');
+        localStorage.setItem('theme', 'dark');
+        icon.textContent = '🌙';
+      } else {
+        html.classList.add('light-theme');
+        localStorage.setItem('theme', 'light');
+        icon.textContent = '☀️';
+      }
     };
   })();
 </script>

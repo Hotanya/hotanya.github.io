@@ -269,7 +269,7 @@ button:not(.theme-toggle):not(.greedy-nav__toggle):not(.search__toggle):not([cla
 .skill-tag {
   background: var(--bg-surface);
   color: var(--text);
-  border-color: var(--border);
+  border-color: var(--text-subtle) !important;
   font-size: 0.74rem !important;
   padding: 0.2rem 0.65rem !important;
 
@@ -284,7 +284,8 @@ button:not(.theme-toggle):not(.greedy-nav__toggle):not(.search__toggle):not([cla
    FILTER BUTTONS — posts page pills
    =========================================== */
 .filter-btn {
-  all: unset !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
   display: inline-flex !important;
   align-items: center !important;
   cursor: pointer !important;
@@ -292,10 +293,14 @@ button:not(.theme-toggle):not(.greedy-nav__toggle):not(.search__toggle):not([cla
   border-radius: 999px !important;
   font-size: 0.74rem !important;
   font-weight: 500 !important;
+  font-family: inherit !important;
   line-height: 1.5 !important;
   background: var(--bg-surface) !important;
   color: var(--text-muted) !important;
-  border: 1px solid var(--border) !important;
+  border: 1px solid var(--text-subtle) !important;
+  box-shadow: none !important;
+  outline: none !important;
+  text-decoration: none !important;
   transition: background 0.13s, color 0.13s, border-color 0.13s !important;
 
   &:hover {

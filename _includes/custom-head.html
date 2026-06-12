@@ -12,7 +12,11 @@
 
   // Apply theme immediately to prevent flash
   const initialTheme = getInitialTheme();
-  document.documentElement.className = `${initialTheme}-theme`;
+  if (initialTheme === 'light') {
+    document.documentElement.classList.add('light-theme');
+  } else {
+    document.documentElement.classList.remove('light-theme');
+  }
 </script>
 
 <style>
