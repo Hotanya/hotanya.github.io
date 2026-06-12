@@ -4,8 +4,112 @@ layout: archive
 
 {{ content }}
 
-<ul class="taxonomy__index">
-  {% assign postsInYear = site.posts | where_exp: "item", "item.hidden != true" | group_by_exp: 'post', 'post.date | date: "%Y"' %}
+{% comment %} Gather unique cats & tags across all visible posts {% endcomment %}
+{% assign all_cats = "" %}
+{% assign all_tags = "" %}
+{% assign visible_posts = site.posts | where_exp: "item", "item.hidden != true" %}
+{% for post in visible_posts %}
+  {% for cat in post.categories %}{% assign all_cats = all_cats | append: cat | append: "|||" %}{% endfor %}
+  {% for tag in post.tags %}{% assign all_tags = all_tags | append: tag | append: "|||" %}{% endfor %}
+{% endfor %}
+{% assign all_cats = all_cats | split: "|||" | uniq | sort %}
+{% assign all_tags = all_tags | split: "|||" | uniq | sort %}
+
+<style>
+  .filter-bar { margin-bottom: 1.75rem; }
+  .filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.55rem;
+  }
+  .filter-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-subtle, #64748b);
+    margin-right: 0.2rem;
+    white-space: nowrap;
+  }
+  .filter-btn {
+    all: unset;
+    cursor: pointer;
+    padding: 0.22rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    background: var(--bg-surface, #1e293b);
+    color: var(--text-muted, #94a3b8);
+    border: 1px solid var(--border, #334155) !important;
+    line-height: 1.5;
+    transition: background 0.13s, color 0.13s, border-color 0.13s;
+  }
+  .filter-btn:hover {
+    background: var(--skill-hover, #263348);
+    color: var(--text, #e2e8f0);
+    border-color: var(--accent, #2563eb) !important;
+  }
+  .filter-btn.active {
+    background: var(--accent, #2563eb);
+    color: #fff;
+    border-color: var(--accent, #2563eb) !important;
+  }
+  .filter-clear {
+    all: unset;
+    cursor: pointer;
+    font-size: 0.74rem;
+    color: var(--text-subtle, #64748b);
+    text-decoration: underline;
+    margin-left: 0.25rem;
+    display: none;
+  }
+  .filter-clear.visible { display: inline; }
+  .posts-filter-count {
+    font-size: 0.8rem;
+    color: var(--text-subtle, #64748b);
+    margin-bottom: 1rem;
+  }
+  .taxonomy__section.posts-hidden { display: none; }
+  .list__item.posts-hidden { display: none; }
+  .no-filter-results { display: none; color: var(--text-muted, #94a3b8); font-style: italic; }
+  .no-filter-results.visible { display: block; }
+</style>
+
+{% assign has_cats = false %}
+{% for cat in all_cats %}{% unless cat == "" %}{% assign has_cats = true %}{% endunless %}{% endfor %}
+
+{% assign has_tags = false %}
+{% for tag in all_tags %}{% unless tag == "" %}{% assign has_tags = true %}{% endunless %}{% endfor %}
+
+{% if has_cats or has_tags %}
+<div class="filter-bar">
+  {% if has_cats %}
+  <div class="filter-group">
+    <span class="filter-label">Category</span>
+    {% for cat in all_cats %}{% unless cat == "" %}
+      <button class="filter-btn" data-filter-type="category" data-filter-value="{{ cat | downcase }}">{{ cat }}</button>
+    {% endunless %}{% endfor %}
+    <button class="filter-clear" id="clear-cats" onclick="postsFilterClear('category')">clear</button>
+  </div>
+  {% endif %}
+  {% if has_tags %}
+  <div class="filter-group">
+    <span class="filter-label">Tag</span>
+    {% for tag in all_tags %}{% unless tag == "" %}
+      <button class="filter-btn" data-filter-type="tag" data-filter-value="{{ tag | downcase }}">{{ tag }}</button>
+    {% endunless %}{% endfor %}
+    <button class="filter-clear" id="clear-tags" onclick="postsFilterClear('tag')">clear</button>
+  </div>
+  {% endif %}
+</div>
+<p class="posts-filter-count" id="posts-filter-count"></p>
+<p class="no-filter-results" id="no-filter-results">No posts match the selected filters.</p>
+{% endif %}
+
+<ul class="taxonomy__index" id="year-index">
+  {% assign postsInYear = visible_posts | group_by_exp: 'post', 'post.date | date: "%Y"' %}
   {% for year in postsInYear %}
     <li>
       <a href="#{{ year.name }}">
@@ -16,15 +120,112 @@ layout: archive
 </ul>
 
 {% assign entries_layout = page.entries_layout | default: 'list' %}
-{% assign postsByYear = site.posts | where_exp: "item", "item.hidden != true" | group_by_exp: 'post', 'post.date | date: "%Y"' %}
+{% assign postsByYear = visible_posts | group_by_exp: 'post', 'post.date | date: "%Y"' %}
 {% for year in postsByYear %}
-  <section id="{{ year.name }}" class="taxonomy__section">
+  <section id="{{ year.name }}" class="taxonomy__section" data-year="{{ year.name }}">
     <h2 class="archive__subtitle">{{ year.name }}</h2>
     <div class="entries-{{ entries_layout }}">
       {% for post in year.items %}
-        {% include archive-single.html type=entries_layout %}
+        {% assign cats_lower = post.categories | join: "," | downcase %}
+        {% assign tags_lower = post.tags | join: "," | downcase %}
+        <div class="list__item"
+             data-categories="{{ cats_lower }}"
+             data-tags="{{ tags_lower }}">
+          <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+            <h2 class="archive__item-title no_toc p-name" itemprop="headline">
+              <a class="u-url" href="{{ post.url | relative_url }}" rel="permalink">{{ post.title }}</a>
+            </h2>
+            <p class="page__meta">
+              {% if post.read_time %}
+                <span class="page__meta-readtime">
+                  <i class="far fa-clock" aria-hidden="true"></i>
+                  {{ post.content | number_of_words | divided_by: 200 | plus: 1 }} minute read
+                </span>
+              {% endif %}
+            </p>
+            {% if post.excerpt %}
+              <p class="archive__item-excerpt p-summary" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>
+            {% endif %}
+          </article>
+        </div>
       {% endfor %}
     </div>
     <a href="#page-title" class="back-to-top">{{ site.data.ui-text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
   </section>
 {% endfor %}
+
+<script>
+(function () {
+  var active = { category: null, tag: null };
+  var total = document.querySelectorAll('.list__item[data-categories]').length;
+
+  function updateDisplay() {
+    var visible = 0;
+
+    document.querySelectorAll('.taxonomy__section').forEach(function (section) {
+      var sectionVisible = 0;
+
+      section.querySelectorAll('.list__item[data-categories]').forEach(function (item) {
+        var cats = item.dataset.categories;
+        var tags  = item.dataset.tags;
+
+        var catOk = !active.category || cats.split(',').indexOf(active.category) !== -1;
+        var tagOk = !active.tag      || tags.split(',').indexOf(active.tag) !== -1;
+        var show  = catOk && tagOk;
+
+        item.classList.toggle('posts-hidden', !show);
+        if (show) { visible++; sectionVisible++; }
+      });
+
+      section.classList.toggle('posts-hidden', sectionVisible === 0);
+    });
+
+    var countEl = document.getElementById('posts-filter-count');
+    var noResults = document.getElementById('no-filter-results');
+    var yearIndex = document.getElementById('year-index');
+
+    if (countEl) {
+      var hasFilter = active.category || active.tag;
+      countEl.textContent = hasFilter
+        ? 'Showing ' + visible + ' of ' + total + ' post' + (total !== 1 ? 's' : '')
+        : total + ' post' + (total !== 1 ? 's' : '');
+    }
+
+    if (noResults) noResults.classList.toggle('visible', visible === 0);
+    if (yearIndex) yearIndex.style.display = (active.category || active.tag) ? 'none' : '';
+  }
+
+  window.postsFilterClear = function (type) {
+    active[type] = null;
+    document.querySelectorAll('[data-filter-type="' + type + '"]')
+      .forEach(function (b) { b.classList.remove('active'); });
+    var clearBtn = document.getElementById('clear-' + type + 's');
+    if (clearBtn) clearBtn.classList.remove('visible');
+    updateDisplay();
+  };
+
+  document.querySelectorAll('.filter-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var type  = btn.dataset.filterType;
+      var value = btn.dataset.filterValue;
+
+      if (active[type] === value) {
+        active[type] = null;
+        btn.classList.remove('active');
+      } else {
+        document.querySelectorAll('[data-filter-type="' + type + '"]')
+          .forEach(function (b) { b.classList.remove('active'); });
+        active[type] = value;
+        btn.classList.add('active');
+      }
+
+      var clearBtn = document.getElementById('clear-' + type + 's');
+      if (clearBtn) clearBtn.classList.toggle('visible', !!active[type]);
+
+      updateDisplay();
+    });
+  });
+
+  updateDisplay();
+})();
+</script>

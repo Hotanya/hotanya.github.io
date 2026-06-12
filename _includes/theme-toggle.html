@@ -1,27 +1,23 @@
-<!-- _includes/theme-toggle.html -->
-<button 
-  id="themeToggle" 
-  class="theme-toggle" 
-  aria-label="Toggle dark mode"
+<button
+  id="themeToggle"
+  class="theme-toggle"
+  aria-label="Toggle theme"
   onclick="toggleTheme()">
-  <span id="themeIcon">🌙</span>
+  <span id="themeIcon"></span>
 </button>
 
 <script>
-  function toggleTheme() {
-    const currentTheme = document.body.className;
-    const newTheme = currentTheme === 'dark-theme' ? 'light' : 'dark';
-    const icon = document.getElementById('themeIcon');
-    
-    localStorage.setItem('theme', newTheme);
-    document.body.className = `${newTheme}-theme`;
-    icon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
-  }
+  (function () {
+    var html = document.documentElement;
+    var icon = document.getElementById('themeIcon');
+    icon.textContent = html.classList.contains('light-theme') ? '☀️' : '🌙';
 
-  // Set initial icon
-  document.addEventListener('DOMContentLoaded', () => {
-    const currentTheme = document.body.className;
-    const icon = document.getElementById('themeIcon');
-    icon.textContent = currentTheme === 'dark-theme' ? '🌙' : '☀️';
-  });
+    window.toggleTheme = function () {
+      var isLight = html.classList.contains('light-theme');
+      var next = isLight ? 'dark' : 'light';
+      html.className = next + '-theme';
+      localStorage.setItem('theme', next);
+      icon.textContent = next === 'light' ? '☀️' : '🌙';
+    };
+  })();
 </script>

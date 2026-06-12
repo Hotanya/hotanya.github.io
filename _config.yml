@@ -18,7 +18,6 @@ url: "https://hotanya.fyi"
 email:
 description: >- # this means to ignore newlines until "baseurl:"
   Blog website for Hotanya Ragtah. Technical insight, vulnerability writeups, ethical hacking, penetration testing etc.
-twitter_username: niinjat
 github_username: Hotanya
 minimal_mistakes_skin: dark
 search: true
@@ -30,7 +29,7 @@ remote_theme: mmistakes/minimal-mistakes
 permalink: /:categories/:title/
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
-timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: Pacific/Auckland
 repository: Hotanya/hotanya.github.io
 
 
@@ -38,7 +37,7 @@ analytics:
   provider: "google-gtag"
   google:
     tracking_id: "G-JS2FT39R1K"
-    anonymize_ip: false # default
+    anonymize_ip: true
 
 include:
   - _pages
@@ -57,7 +56,7 @@ include:
 
 # Plugins (previously gems:)
 plugins:
-  - jekyll-github-metadata
+  - jekyll-remote-theme
   - jekyll-seo-tag
   - jekyll-paginate
   - jekyll-sitemap
@@ -65,7 +64,6 @@ plugins:
   - jekyll-feed
   - jemoji
   - jekyll-include-cache
-  - jekyll-coffeescript
   - jekyll-algolia
 
 author:
@@ -76,9 +74,6 @@ author:
     - label: "Website"
       icon: "fas fa-fw fa-link"
       url: "https://hotanya.fyi"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/niinjat"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/Hotanya"
@@ -88,9 +83,6 @@ author:
 
 footer:
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/niinjat"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/Hotanya"

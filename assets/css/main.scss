@@ -1,206 +1,338 @@
 ---
 ---
 
-/* Default dark theme */
+/* ===========================================
+   CSS CUSTOM PROPERTIES
+   Dark defaults; html.light-theme overrides
+   =========================================== */
 :root {
-  --background-color: #282a36;
-  --text-color: #e6e6e6;
-  --link-color: #58a6ff;
-  --nav-background: #282a36;
-  --footer-background: #282a36;
+  --bg:           #1a1a2e;
+  --bg-surface:   #1e293b;
+  --border:       #334155;
+  --text:         #e2e8f0;
+  --text-muted:   #94a3b8;
+  --text-subtle:  #64748b;
+  --link:         #60a5fa;
+  --accent:       #2563eb;
+  --dot-ring:     #0f172a;
+  --pending:      #f59e0b;
+  --skill-hover:  #263348;
+  --section-rule: #1e293b;
 }
 
-/* Theme-specific variables */
-.dark-theme {
-  --background-color: #1a1a1a;
-  --text-color: #e6e6e6;
-  --link-color: #58a6ff;
-  --nav-background: #1a1a1a;
-  --footer-background: #1a1a1a;
+html.light-theme {
+  --bg:           #ffffff;
+  --bg-surface:   #f1f5f9;
+  --border:       #e2e8f0;
+  --text:         #1e293b;
+  --text-muted:   #475569;
+  --text-subtle:  #94a3b8;
+  --link:         #1d4ed8;
+  --accent:       #2563eb;
+  --dot-ring:     #ffffff;
+  --pending:      #d97706;
+  --skill-hover:  #cbd5e1;
+  --section-rule: #e2e8f0;
 }
 
-.dark-theme ::selection {
-  background-color: #58a6ff; /* Highlight background */
-  color: #ffffff; /* Highlight text */
-}
-
-.light-theme {
-  --background-color: #ffffff;
-  --text-color: #1a1a1a;
-  --link-color: #0366d6;
-  --nav-background: #ffffff;
-  --footer-background: #ffffff;
-}
-
-.light-theme ::selection {
-  background-color: #0366d6; /* Highlight background */
-  color: #ffffff; /* Highlight text */
-}
-
-/* Import theme after setting default variables */
+/* ===========================================
+   IMPORT THEME (before overrides)
+   =========================================== */
 @import "minimal-mistakes";
 
-/* Override theme styles */
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
+/* ===========================================
+   LIGHT THEME — override MM dark skin
+   =========================================== */
+html.light-theme {
+  background-color: var(--bg);
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+  }
+
+  .masthead {
+    background-color: var(--bg);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+
+  .greedy-nav {
+    background: var(--bg);
+
+    a, .site-title {
+      color: var(--text);
+      &:hover { color: var(--accent); }
+    }
+
+    .visible-links a::before { background: var(--accent); }
+
+    .hidden-links {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+      a {
+        color: var(--text);
+        &:hover { color: var(--accent); }
+      }
+    }
+
+    button {
+      background: transparent !important;
+
+      .navicon,
+      .navicon::before,
+      .navicon::after { background: var(--text); }
+    }
+  }
+
+  .sidebar {
+    .author__name  { color: var(--text); }
+    .author__bio   { color: var(--text-muted); }
+    .author__urls-wrapper button {
+      background: var(--bg-surface) !important;
+      color: var(--text) !important;
+      border: 1px solid var(--border) !important;
+    }
+    .author__urls a { color: var(--text-muted); }
+  }
+
+  .page__content {
+    color: var(--text);
+
+    h1, h2, h3, h4, h5, h6 { color: var(--text); }
+    p, li { color: var(--text); }
+    a:not(.btn) { color: var(--link); }
+
+    code {
+      background: var(--bg-surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    pre {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      code { background: transparent; border: none; }
+    }
+
+    blockquote {
+      border-left-color: var(--accent);
+      color: var(--text-muted);
+      background: var(--bg-surface);
+    }
+
+    table {
+      thead th {
+        background: var(--bg-surface);
+        color: var(--text);
+        border-color: var(--border);
+      }
+      tbody {
+        td { border-color: var(--border); color: var(--text); }
+        tr:nth-child(even) { background: var(--bg-surface); }
+      }
+    }
+
+    hr { border-color: var(--border); }
+  }
+
+  .page__title { color: var(--text); }
+  .page__meta  { color: var(--text-subtle); }
+
+  .archive__item-title a { color: var(--text); }
+  .archive__item-excerpt { color: var(--text-muted); }
+
+  .page__footer {
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border);
+    footer { background: var(--bg-surface); color: var(--text-muted); }
+    a { color: var(--text-muted); &:hover { color: var(--accent); } }
+  }
+
+  .page__footer-copyright { color: var(--text-muted); }
+
+  .toc {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    header { background: var(--bg-surface); color: var(--text); }
+    .toc__menu a { color: var(--text-muted); &:hover { color: var(--accent); } }
+  }
+
+  .search-input {
+    background: var(--bg-surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  ::selection { background: var(--accent); color: #fff; }
 }
 
-/* Navigation bar overrides */
+/* ===========================================
+   DARK THEME BASE — nav / footer overrides
+   =========================================== */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
 .masthead {
-  background-color: var(--nav-background);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--bg);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
 }
 
 .greedy-nav {
-  background-color: var(--nav-background);
+  background: var(--bg);
 
-  a {
-    color: var(--text-color);
-    &:hover {
-      color: var(--link-color);
-    }
-  }
-
-  .visible-links {
-    a {
-      &:before {
-        background: var(--link-color);
-      }
-    }
-  }
+  a { color: var(--text); &:hover { color: var(--link); } }
+  .visible-links a::before { background: var(--link); }
 
   .hidden-links {
-    background: var(--nav-background);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-
-    a {
-      color: var(--text-color);
-      &:hover {
-        color: var(--link-color);
-      }
-    }
+    background: var(--bg);
+    border: 1px solid rgba(255,255,255,0.1);
+    a { color: var(--text); }
   }
 }
 
-/* Footer overrides */
 .page__footer {
-  background-color: var(--footer-background);
-  color: var(--text-color);
-  
-  footer {
-    background-color: var(--footer-background);
-    color: var(--text-color);
-  }
-
-  a {
-    color: var(--text-color);
-    &:hover {
-      color: var(--link-color);
-    }
-  }
+  background: var(--bg);
+  footer { background: var(--bg); color: var(--text); }
+  a { color: var(--text); &:hover { color: var(--link); } }
 }
 
-/* Ensure all footer elements are properly colored */
-.page__footer-copyright {
-  color: var(--text-color);
-}
+.page__footer-copyright,
+.page__footer-follow .social-icons .fa { color: var(--text); }
 
-.page__footer-follow {
-  .social-icons {
-    .fa {
-      color: var(--text-color);
-    }
-  }
-}
+::selection { background: var(--accent); color: #fff; }
 
+/* ===========================================
+   THEME TOGGLE BUTTON
+   Exempted from all generic button rules
+   =========================================== */
+.theme-toggle {
+  position: fixed !important;
+  top: 0.8rem !important;
+  right: 1rem !important;
+  width: 36px !important;
+  height: 36px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  background: rgba(255,255,255,0.12) !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
+  color: inherit !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1rem !important;
+  line-height: 1 !important;
+  z-index: 9999 !important;
+  transition: background 0.2s ease, transform 0.15s ease !important;
+  box-shadow: none !important;
 
-/* Layout adjustments */
-/*
-.page {
-  float: left;
-  width: 100%;
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.page__content {
-  float: left;
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
-  padding-left: 0;
-  padding-right: 0;
-}
-*/
-
-/* Dark theme text colors */
-.dark-theme {
-  .page__content {
-    color: var(--text-color);
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--text-color);
-  }
-  
-  .page__title {
-    color: var(--text-color);
-    display: none
-  }
-
-  .site-title {
-    color: var(--text-color);
-  }
-
-  .masthead__menu-item {
-    color: var(--text-color);
-  }
-}
-
-
-/* Navigation buttons */
-.greedy-nav__toggle {
-  background-color: var(--nav-background);
   &:hover {
-    background-color: var(--link-color);
+    background: rgba(255,255,255,0.22) !important;
+    transform: scale(1.08) !important;
+    color: inherit !important;
   }
 }
 
-/* Mobile nav */
-.greedy-nav__toggle button {
-  background-color: var(--nav-background);
-  color: var(--text-color);
+html.light-theme .theme-toggle {
+  background: rgba(0,0,0,0.06) !important;
+  border: 1px solid rgba(0,0,0,0.15) !important;
+  &:hover { background: rgba(0,0,0,0.13) !important; }
 }
 
-button, .btn, .skills__button {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  border: 1px solid var(--link-color);
-  padding: 0.5rem;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
-button:hover, .btn:hover, .skills__button:hover {
-  background-color: var(--link-color);
-  color: var(--background-color);
-}
-
-button {
-  background-color: var(--link-color);
-  color: var(--background-color);
+/* ===========================================
+   GENERIC BUTTONS — exclude UI controls
+   =========================================== */
+button:not(.theme-toggle):not(.greedy-nav__toggle):not(.search__toggle):not([class*="author"]):not(.filter-btn):not(.filter-clear) {
+  background-color: var(--accent);
+  color: #fff;
   border: none;
-  transition: all 0.3s ease;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  &:hover { opacity: 0.85; }
 }
 
-.light-theme button {
-  background-color: var(--link-color);
-  color: var(--background-color);
+/* ===========================================
+   PORTFOLIO COMPONENTS — inherit CSS vars
+   =========================================== */
+.portfolio-section h2 {
+  color: var(--text-muted);
+  border-bottom-color: var(--section-rule);
 }
 
-.dark-theme button {
-  background-color: var(--link-color);
-  color: var(--text-color);
+.skill-tag {
+  background: var(--bg-surface);
+  color: var(--text);
+  border-color: var(--border);
+  font-size: 0.74rem !important;
+  padding: 0.2rem 0.65rem !important;
+
+  &:hover {
+    background: var(--skill-hover);
+    border-color: var(--accent);
+    color: var(--text);
+  }
 }
 
+/* ===========================================
+   FILTER BUTTONS — posts page pills
+   =========================================== */
+.filter-btn {
+  all: unset !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  padding: 0.2rem 0.65rem !important;
+  border-radius: 999px !important;
+  font-size: 0.74rem !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  background: var(--bg-surface) !important;
+  color: var(--text-muted) !important;
+  border: 1px solid var(--border) !important;
+  transition: background 0.13s, color 0.13s, border-color 0.13s !important;
+
+  &:hover {
+    background: var(--skill-hover) !important;
+    color: var(--text) !important;
+    border-color: var(--accent) !important;
+  }
+
+  &.active {
+    background: var(--accent) !important;
+    color: #fff !important;
+    border-color: var(--accent) !important;
+  }
+}
+
+.talk-item {
+  background: var(--bg-surface);
+  border-color: var(--border);
+
+  a { color: var(--text); &:hover { color: var(--link); } }
+}
+
+.talk-venue  { color: var(--text-subtle); }
+.cert-item   { color: var(--text-muted); }
+.cert-item::before { color: var(--accent); }
+.cert-pending { color: var(--pending); }
+
+.timeline::before {
+  background: linear-gradient(to bottom, var(--accent), var(--section-rule));
+}
+
+.timeline-dot {
+  background: var(--accent);
+  border-color: var(--dot-ring);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.timeline-title   { color: var(--text); }
+.timeline-period  { color: var(--text-subtle); }
+.timeline-content { color: var(--text-muted); }
