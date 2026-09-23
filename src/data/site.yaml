@@ -11,5 +11,5 @@ repo: https://github.com/Hotanya/hotanya.github.io
 contact:
   heading: Got an application that needs a second pair of eyes?
   text: Happy to talk about security reviews, speaking, or research collaborations.
-  # Until booking exists, "Get in touch" points here.
-  url: https://www.linkedin.com/in/hotanyar/
+  # "Get in touch" opens the visitor's mail client.
+  url: mailto:hello@hotanya.fyi

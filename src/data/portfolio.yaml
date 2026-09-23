@@ -98,6 +98,7 @@ talks:
     venue_short: AppSec Days India
     year: 2024
     links:
+      recording: https://www.youtube.com/watch?v=HdiDWRJ8N3M
       abstract: https://web.archive.org/web/20241111214743/https://owaspappsecdaysindia2024vir.sched.com/event/1rGPh/thinking-like-an-attacker-quick-wins-for-securing-your-application
   - title: Fantastic GraphQL bugs and where to find them
     short: Fantastic GraphQL bugs
