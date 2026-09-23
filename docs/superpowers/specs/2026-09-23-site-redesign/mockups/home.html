@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hotanya Ragtah (mockup: feature photo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,500;1,6..72,500&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('mock-theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="stylesheet" href="layouts.css">
+<style>
+  /* feature slot */
+  .feat { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; padding: 32px 0 40px; border-bottom: 1px solid var(--rule); }
+  .feat .media { min-height: 340px; border-radius: 8px; overflow: hidden; position: relative; background: var(--surface); }
+  .feat .txt { display: flex; flex-direction: column; justify-content: center; }
+  .feat h3 { font-size: clamp(28px, 3vw, 40px); line-height: 1.1; margin: 12px 0 14px; }
+  .feat:hover h3 { color: var(--acc); }
+  .feat p { color: var(--ink2); font-size: 17px; max-width: 48ch; }
+  .feat .tags { margin-top: 16px; }
+  .feat .cov { position: absolute; inset: 0; padding: 26px 28px; border-radius: 8px; }
+  .feat .cov .pl { font-size: 20px; }
+
+  /* photo: full-bleed */
+  .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; transition: filter .3s; }
+  .photo .cap { position: absolute; left: 14px; bottom: 12px; font: 400 11px "IBM Plex Mono", monospace; color: #fff; background: rgba(0,0,0,.45); padding: 4px 8px; border-radius: 4px; backdrop-filter: blur(4px); }
+
+  /* screenshot: framed on the surface */
+  .shot { display: grid; place-items: center; padding: 34px; background-image: radial-gradient(var(--rule) 1px, transparent 1.2px); background-size: 14px 14px; }
+  .shot img { max-width: 100%; max-height: 300px; border-radius: 6px; box-shadow: 0 1px 0 var(--rule), 0 14px 38px rgba(20,18,30,.18); display: block; transition: filter .3s; }
+  .shot .tl { position: absolute; top: 14px; left: 18px; right: 18px; display: flex; justify-content: space-between; font: 400 10.5px "IBM Plex Mono", monospace; letter-spacing: .05em; text-transform: uppercase; color: var(--ink3); }
+  .shot .tl .id { color: var(--acc); }
+  .shot::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--acc); }
+
+  /* toned treatment: unify any photo with the palette */
+  body.toned .photo img, body.toned .th img { filter: grayscale(1) contrast(1.05) brightness(1.02); }
+  body.toned .photo::after, body.toned .th::after { content: ""; position: absolute; inset: 0; background: var(--acc); mix-blend-mode: soft-light; opacity: .55; pointer-events: none; }
+  :root[data-theme="dark"] body.toned .photo img { filter: grayscale(1) contrast(1.05) brightness(.85); }
+
+  /* index */
+  .idx { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .idx a { padding: 26px 26px 10px 0; display: flex; flex-direction: column; gap: 8px; }
+  .idx a + a { padding-left: 26px; border-left: 1px solid var(--rule); }
+  .idx h4 { font-size: 18px; font-weight: 500; line-height: 1.35; }
+  .idx a:hover h4 { color: var(--acc); }
+  .idx p { font-size: 14.5px; color: var(--ink2); }
+  .th { display: none; position: relative; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; background: var(--surface); margin-bottom: 6px; }
+  .th img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .th.cv { padding: 12px 14px; font: 400 12px/1.5 "IBM Plex Mono", monospace; color: var(--ink2); display: none; align-items: flex-end; word-break: break-word; }
+  .th.cv i { font-style: normal; color: var(--acc); }
+  body.thumbs .th { display: block; } body.thumbs .th.cv { display: flex; }
+  .strip { margin-top: 40px; display: flex; gap: 36px; align-items: baseline; padding: 16px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); overflow-x: auto; white-space: nowrap; font-size: 15px; scrollbar-width: none; }
+  .strip b { font: 500 11px "IBM Plex Mono", monospace; color: var(--ink3); text-transform: uppercase; letter-spacing: .06em; }
+  .strip em { font-style: normal; color: var(--ink3); font-family: "IBM Plex Mono", monospace; font-size: 12px; margin-left: 8px; }
+
+  /* mockup controls */
+  .ctl { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 50; display: flex; gap: 14px; align-items: center; padding: 6px 8px 6px 14px; border-radius: 999px; background: var(--ink); color: var(--bg); box-shadow: 0 8px 24px rgba(0,0,0,.22); font: 500 12px "IBM Plex Mono", monospace; flex-wrap: wrap; justify-content: center; max-width: calc(100vw - 24px); }
+  .ctl .grp { display: flex; gap: 2px; }
+  .ctl .grp b { font-weight: 400; opacity: .55; margin-right: 6px; align-self: center; }
+  .ctl button { font: inherit; color: var(--bg); background: none; border: 0; opacity: .6; padding: 6px 11px; border-radius: 999px; cursor: pointer; }
+  .ctl button:hover { opacity: 1; }
+  .ctl button.on { opacity: 1; background: color-mix(in srgb, var(--bg) 18%, transparent); }
+  .ctl .sep { width: 1px; height: 18px; background: var(--bg); opacity: .2; }
+
+  body.v-photo .idx a.not-photo, body:not(.v-photo) .idx a.only-photo { display: none; }
+  [data-v] { display: none; } body.v-photo [data-v="photo"], body.v-shot [data-v="shot"], body.v-text [data-v="text"] { display: grid; }
+
+  @media (max-width: 980px) { .idx { grid-template-columns: 1fr 1fr; } .idx a:nth-child(3) { padding-left: 0; border-left: 0; } .idx a:nth-child(n+3) { border-top: 1px solid var(--rule); } }
+  @media (max-width: 700px) { .feat { grid-template-columns: 1fr; gap: 24px; } .feat .media { min-height: 230px; } .idx { grid-template-columns: 1fr; } .idx a, .idx a + a { padding: 20px 0; border-left: 0; border-top: 1px solid var(--rule); } .ctl .grp b { display: none; } }
+</style>
+</head>
+<body class="v-photo">
+<div class="wrap">
+  <header class="site">
+    <a class="brand" href="#"><span class="mark">hr</span><span class="nm">Hotanya Ragtah</span></a>
+    <div class="navr">
+      <nav class="main"><a class="on" href="#">Writing</a><a href="#">Talks</a><a href="#">Portfolio</a><a href="#contact">Contact</a></nav>
+      <button class="tog" aria-label="Toggle colour theme" onclick="toggleTheme()"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg></button>
+    </div>
+  </header>
+  <div class="hero">
+    <h1>I break software for a living, then <em>write down how</em> so it's easier to fix.</h1>
+    <p>Vulnerability write-ups, research from my conference talks, and the odd homelab project that got out of hand.</p>
+    <p class="quiet">Hotanya Ragtah · Senior AppSec Engineer at Plexure</p>
+  </div>
+
+  <div class="sh"><span>featured</span><a href="#">all writing →</a></div>
+
+  <!-- A: full-bleed photo (e.g. a talk photo) -->
+  <a class="feat" href="#" data-v="photo">
+    <div class="media photo"><img src="bio-photo.jpg" alt=""><span class="cap">stand-in photo · OWASP NZ Day</span></div>
+    <div class="txt"><span class="d">17 Sep 2024 · 7 min read · from my OWASP NZ Day talk</span><h3 class="serif">Fantastic GraphQL bugs and where to find them</h3><p>The write-up of my OWASP NZ Day 2022 talk: the GraphQL issues we kept finding on pentests, and how to lock them down.</p><div class="tags"><span>graphql</span><span>apis</span></div></div>
+  </a>
+
+  <!-- B: framed screenshot -->
+  <a class="feat" href="#" data-v="shot">
+    <div class="media shot"><div class="tl"><span>advisory</span><span class="id">CVE-2024-52286</span></div><img src="stirlingpdf-localxss.png" alt=""></div>
+    <div class="txt"><span class="d">09 Jan 2025 · 3 min read</span><h3 class="serif">Self-XSS in Stirling-PDF's merge feature</h3><p>Unsanitised PDF file names were rendered straight into the result page, so HTML and JavaScript in a file name got executed.</p><div class="tags"><span>xss</span><span>open-source</span></div></div>
+  </a>
+
+  <!-- C: text cover (no image) -->
+  <a class="feat" href="#" data-v="text">
+    <div class="media"><div class="cov adv"><div class="tl"><span>advisory</span><span class="id">CVE-2024-52286</span></div><div class="pl"><i>&lt;img src=x onerror=alert(1)&gt;</i>.pdf</div></div></div>
+    <div class="txt"><span class="d">09 Jan 2025 · 3 min read</span><h3 class="serif">Self-XSS in Stirling-PDF's merge feature</h3><p>Unsanitised PDF file names were rendered straight into the result page, so HTML and JavaScript in a file name got executed.</p><div class="tags"><span>xss</span><span>open-source</span></div></div>
+  </a>
+
+  <div class="idx">
+    <a href="#"><div class="th cv"><span><s style="text-decoration:none;opacity:.5">$</s> rclone copy ./backups <i>gdrive:teslamate</i></span></div><span class="k g">guide · jan 2025</span><h4>Automating Portainer-hosted TeslaMate backups to Google Drive</h4><p>rclone, a small shell script and a cron job, adapted for Portainer.</p></a>
+    <a href="#"><div class="th"><img src="workflowInjection.png" alt="" style="object-position:0 40%"></div><span class="k">disclosure · oct 2024</span><h4>Command injection in the es-hangul GitHub Actions workflow</h4><p>An unsanitised workflow input interpolated into a shell step.</p></a>
+    <a href="#"><div class="th"><img src="ViteIssue.png" alt="" style="object-position:0 0"></div><span class="k">disclosure · oct 2024</span><h4>Admin-scoped Algolia API key exposed in Vite</h4><p>Full create, read, update and delete rights in the page source.</p></a>
+    <a href="#" class="only-photo"><div class="th"><img src="stirlingpdf-localxss.png" alt=""></div><span class="k">advisory · jan 2025</span><h4>Self-XSS in Stirling-PDF's merge feature</h4><p>Unsanitised PDF file names rendered into the result page.</p></a>
+    <a href="#" class="not-photo"><div class="th"><img src="graphqlvsrest.png" alt=""></div><span class="k g">research · sep 2024</span><h4>Fantastic GraphQL bugs and where to find them</h4><p>From my OWASP NZ Day 2022 talk.</p></a>
+  </div>
+  <div class="strip"><b>Talks</b><a href="#">JWT WTF?<em>OWASP NZ Day '25</em></a><a href="#">Thinking like an attacker<em>AppSec Days India '24</em></a><a href="#">Fantastic GraphQL bugs<em>OWASP NZ Day '22</em></a><a href="#">Getting started in security<em>Waikato '22</em></a></div>
+
+  <section class="contact" id="contact">
+    <div><h2>Got an application that needs a second pair of eyes?</h2><p>Happy to talk about security reviews, speaking, or research collaborations.</p></div>
+    <div class="acts"><a class="btn pri" href="#">Get in touch</a><a class="btn" href="#">LinkedIn</a></div>
+  </section>
+  <footer class="site"><span>© 2026 Hotanya Ragtah</span><nav><a href="#">rss</a><a href="#">github</a><a href="#">linkedin</a></nav></footer>
+</div>
+
+<div class="ctl">
+  <div class="grp" data-g="v"><b>feature</b><button data-c="v-photo" class="on">photo</button><button data-c="v-shot">screenshot</button><button data-c="v-text">text cover</button></div>
+  <span class="sep"></span>
+  <div class="grp" data-g="tone"><b>photo tone</b><button data-c="" class="on">original</button><button data-c="toned">toned</button></div>
+  <span class="sep"></span>
+  <div class="grp" data-g="th"><b>index</b><button data-c="" class="on">text only</button><button data-c="thumbs">thumbnails</button></div>
+</div>
+
+<script>
+function toggleTheme(){
+  var r=document.documentElement, cur=r.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  var next = cur==='dark'?'light':'dark'; r.dataset.theme=next;
+  try{localStorage.setItem('mock-theme',next);}catch(e){}
+}
+[].forEach.call(document.querySelectorAll('.ctl .grp'), function(g){
+  var btns=[].slice.call(g.querySelectorAll('button'));
+  btns.forEach(function(b){ b.addEventListener('click', function(){
+    btns.forEach(function(x){ if(x.dataset.c) document.body.classList.remove(x.dataset.c); x.classList.toggle('on', x===b); });
+    if(b.dataset.c) document.body.classList.add(b.dataset.c);
+  });});
+});
+</script>
+</body>
+</html>

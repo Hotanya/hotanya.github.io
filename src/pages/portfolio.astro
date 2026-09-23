@@ -1,0 +1,131 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Contact from '../components/Contact.astro';
+import bio from '../assets/bio-photo.jpg';
+import { site, portfolio } from '../lib/data';
+import { getPosts, postUrl, accentEm, runInHtml } from '../lib/posts';
+import { breadcrumbLd } from '../lib/seo';
+import '../styles/portfolio.css';
+
+const { intro, experience, disclosures, talks, skills, certs } = portfolio;
+const slugs = new Set((await getPosts()).map((p) => p.id));
+// Only link a disclosure to its write-up if that post actually exists.
+const writeUp = (slug?: string) => (slug && slugs.has(slug) ? postUrl(slug) : undefined);
+const sections = [
+  ['exp', 'experience'],
+  ['disc', 'disclosures'],
+  ['talks', 'talks'],
+  ['skills', 'skills'],
+  ['certs', 'certifications'],
+];
+const n = (i: number) => String(i + 1).padStart(2, '0');
+const jsonld = breadcrumbLd([
+  { name: 'Home', url: new URL('/', Astro.site).toString() },
+  { name: 'Portfolio', url: new URL('/portfolio/', Astro.site).toString() },
+]);
+---
+<Base title="Portfolio" description={`${site.name}: experience, disclosures, talks and certifications.`} jsonld={jsonld} headerRuled>
+  <div class="intro">
+    <div>
+      <div class="crumb">portfolio</div>
+      <h1 set:html={accentEm(intro.headline)} />
+      <p>{intro.text}</p>
+      <div class="acts">
+        <a class="btn pri" href={site.contact.url}>Get in touch</a>
+        <a class="btn" href={site.links.linkedin}>LinkedIn</a>
+      </div>
+    </div>
+    <figure>
+      <div class="fr"><Image src={bio} alt={site.name} widths={[420, 640, 840]} sizes="(max-width: 860px) 90vw, 440px" loading="eager" /></div>
+      <figcaption><span>{site.name}</span><span>{intro.location}</span></figcaption>
+    </figure>
+  </div>
+
+  <nav class="jump" id="jump" aria-label="Sections">
+    {sections.map(([id, label], i) => <a href={`#${id}`}><i>{n(i)}</i>{label}</a>)}
+  </nav>
+
+  <section class="sec" id="exp">
+    <h2><i>01</i>Experience<small>From consulting to in-house AppSec.</small></h2>
+    <div>
+      {experience.map((job) => (
+        <div class="job">
+          <div class="when">{!job.end && <b>now</b>}{job.start} – {job.end ?? ''}</div>
+          <div>
+            <h3>{job.title} <span>· {job.company}</span></h3>
+            {job.summary && <p>{job.summary}</p>}
+            {job.bullets.length > 4 ? (
+              <details><summary>{job.bullets.length} responsibilities</summary><ul>{job.bullets.map((b) => <li>{b}</li>)}</ul></details>
+            ) : job.bullets.length > 0 && (
+              <ul>{job.bullets.map((b) => <li>{b}</li>)}</ul>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="sec" id="disc">
+    <h2><i>02</i>Disclosures<small>Vulnerabilities I've found and reported in open-source projects.</small></h2>
+    <table class="disc">
+      <thead><tr><th>ID</th><th>Project</th><th>Issue</th><th>Status</th></tr></thead>
+      <tbody>
+        {disclosures.map((d) => {
+          const href = writeUp(d.post);
+          return (
+            <tr>
+              <td class:list={['id', { none: !d.id }]}>{d.id ?? '—'}</td>
+              <td class="m">{d.project}</td>
+              <td>{href ? <a href={href}>{d.issue}</a> : d.issue}</td>
+              <td><span class="st">{d.status}</span></td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </section>
+
+  <section class="sec" id="talks">
+    <h2><i>03</i>Talks<small>Conference and community presentations.</small></h2>
+    <div>
+      {talks.map((t) => (
+        <div class="talk">
+          <span class="y">{t.year}</span>
+          <div><h3>{t.title}</h3><p>{t.venue}</p></div>
+          <div class="lk">{Object.entries(t.links).map(([label, href]) => <a href={href}>{label}</a>)}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="sec" id="skills">
+    <h2><i>04</i>Skills</h2>
+    <div class="runin">
+      {skills.map((s) => <p><b>{s.label}</b> <Fragment set:html={runInHtml(s.text)} /></p>)}
+    </div>
+  </section>
+
+  <section class="sec" id="certs">
+    <h2><i>05</i>Certifications</h2>
+    <div>
+      {certs.map((c) => (
+        <div class="cert"><div><b>{c.acronym}</b><span>{c.name}</span></div>{c.in_progress && <em>in progress</em>}</div>
+      ))}
+    </div>
+  </section>
+
+  <Contact heading="Want to work together?" text="Security reviews, speaking, or research collaborations." />
+</Base>
+
+<script>
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('#jump a')];
+  const secs = links.map((a) => document.getElementById(a.hash.slice(1)));
+  const on = () => {
+    let c = -1;
+    secs.forEach((s, i) => { if (s && s.getBoundingClientRect().top < 140) c = i; });
+    links.forEach((a, i) => a.classList.toggle('on', i === c));
+  };
+  addEventListener('scroll', on, { passive: true });
+  on();
+</script>

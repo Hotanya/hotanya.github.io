@@ -1,0 +1,138 @@
+# Portfolio page data. Wrap a phrase in *asterisks* to set it in the accent colour.
+intro:
+  headline: Seven years of breaking things *professionally*.
+  text: >-
+    I'm Hotanya, a Senior Application Security Engineer at Plexure. I started in penetration testing,
+    testing web, mobile, API, network and cloud for clients across New Zealand, and now lead application
+    security inside a SaaS platform: secure design, vulnerability management and DevSecOps.
+  location: New Zealand
+
+# Leave `end` out for the current role.
+experience:
+  - title: Senior Application Security Engineer
+    company: Plexure
+    start: Mar 2026
+    summary: >-
+      Leading application security across Plexure's SaaS platform, embedding secure development practices
+      throughout the SDLC and acting as a trusted advisor to engineering, architecture and leadership.
+    bullets:
+      - Own the end-to-end application vulnerability management lifecycle, from discovery and triage through remediation and validation.
+      - Conduct penetration testing and security assessments across web applications and APIs.
+      - Shape secure API and application design patterns that influence architecture decisions across a large consumer-facing platform.
+      - Lead selection, configuration and CI/CD integration of SAST, DAST and SCA tooling.
+      - Develop and maintain threat models and secure design patterns that reflect real-world risks.
+      - Embed DevSecOps practices across teams, balancing strong security outcomes with delivery speed.
+      - Run security maturity assessments to identify systemic weaknesses and prioritise high-impact improvements.
+      - Define security standards, guardrails and compliance-aligned expectations for development teams.
+      - Support incident response with a focus on root cause analysis and long-term risk reduction.
+  - title: Lead Security Consultant
+    company: Bastion Security
+    start: Jun 2025
+    end: Mar 2026
+    summary: Delivering high-quality penetration tests while assisting with pre-sales, including scoping and statements of work.
+  - title: Information Security Consultant
+    company: Kiwibank
+    start: Jul 2024
+    end: Jun 2025
+    summary: >-
+      Embedded security within new and existing projects at every stage of development, working with
+      cross-functional teams and external vendors so security requirements were communicated clearly and risks managed effectively.
+  - title: Senior Security Consultant & Team Lead
+    company: CyberCX
+    start: Oct 2022
+    end: Jul 2024
+    summary: Delivered penetration tests across web, mobile, network and cloud, and led a team of junior consultants.
+    bullets:
+      - Mentored junior staff and conducted performance reviews.
+      - Worked with leadership to improve business processes.
+      - Conducted hiring interviews.
+  - title: Security Consultant
+    company: CyberCX (formerly Insomnia Security)
+    start: Mar 2021
+    end: Oct 2022
+    summary: Delivered penetration tests across web, mobile, network and cloud, including scoping, kickoff calls and client debriefs.
+    bullets:
+      - Helped create and run the first CyberCX NZ Associate Program.
+      - Presented the keynote at the NZ Cyber Security Challenge 2022.
+      - Conducted hiring interviews.
+  - title: Security Consultant
+    company: Insomnia Security
+    start: Mar 2019
+    end: Mar 2021
+    summary: Penetration tests against APIs, web and mobile applications, and internal and external networks.
+  - title: Project Delivery Coordinator
+    company: Insomnia Security
+    start: Feb 2018
+    end: Mar 2019
+    bullets:
+      - Coordinated project delivery between clients and technical teams.
+      - Translated technical requirements for diverse stakeholders.
+      - Tracked scope and timelines to keep projects on track.
+
+# `post` is the slug of the write-up on this site.
+disclosures:
+  - id: CVE-2024-52286
+    project: Stirling-PDF
+    issue: Self-XSS in the merge feature
+    post: self-xss-in-stirling-pdf-cve-2024-52286
+    status: "fixed · PR #2189"
+  - project: es-hangul
+    issue: Command injection in a GitHub Actions workflow
+    post: github-actions-command-injection-hangul
+    status: reported with fix PR
+  - project: vitejs/vite
+    issue: Admin-scoped Algolia API key exposed
+    post: algolia-api-key-misconfiguration-in-vite
+    status: reported · resolved
+
+talks:
+  - title: "JWT WTF? A look into common JWT vulnerabilities"
+    short: JWT WTF?
+    venue: OWASP NZ Day
+    year: 2025
+    links:
+      slides: https://appsec.org.nz/assets/presentations/conference-2025/Ragtah--JWT_WTF.pdf
+  - title: "Thinking like an attacker: quick wins for securing your application"
+    short: Thinking like an attacker
+    venue: OWASP AppSec Days India
+    venue_short: AppSec Days India
+    year: 2024
+    links:
+      abstract: https://web.archive.org/web/20241111214743/https://owaspappsecdaysindia2024vir.sched.com/event/1rGPh/thinking-like-an-attacker-quick-wins-for-securing-your-application
+  - title: Fantastic GraphQL bugs and where to find them
+    short: Fantastic GraphQL bugs
+    venue: OWASP NZ Day
+    year: 2022
+    links:
+      recording: https://www.youtube.com/watch?v=uTvspYJgMuM
+      write-up: /blog/fantastic-graphql-bugs-and-where-to-find-them/
+  - title: Getting started in security
+    short: Getting started in security
+    venue: Waikato Cyber Security Challenge
+    venue_short: Waikato
+    year: 2022
+    links:
+      slides: https://github.com/Hotanya/hotanya/blob/main/WaikatoCSC_Preso.pdf
+
+# Run-in skills: the label runs into the sentence. Wrap each skill name in [square brackets].
+skills:
+  - label: Offensive testing
+    text: "[web applications], [APIs], [iOS] and [Android], [networks] and [Active Directory]."
+  - label: Cloud
+    text: "[AWS] and [Azure] security reviews."
+  - label: AppSec programme
+    text: "[vulnerability management], [SAST, DAST and SCA] in CI/CD, and [threat modelling]."
+  - label: Code
+    text: "[source code review], [Python] and [Bash]."
+
+certs:
+  - acronym: CAPen
+    name: Certified AppSec Pentester
+  - acronym: CCSP-AWS
+    name: Certified Cloud Security Practitioner, AWS
+  - acronym: OSCP
+    name: Offensive Security, PEN-200
+    in_progress: true
+  - acronym: CRTO
+    name: Red Team Ops, Zero Point Security
+    in_progress: true

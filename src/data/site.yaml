@@ -1,0 +1,15 @@
+# Home page and site-wide copy. Wrap a phrase in *asterisks* to set it in the accent colour.
+name: Hotanya Ragtah
+role: Senior AppSec Engineer
+headline: Pentester turned *AppSec Engineer*.
+description: Cybersecurity, vulnerability research and homelab projects.
+meta_description: Hotanya Ragtah. Vulnerability write-ups, security research and homelab projects.
+links:
+  linkedin: https://www.linkedin.com/in/hotanyar/
+  github: https://github.com/Hotanya
+repo: https://github.com/Hotanya/hotanya.github.io
+contact:
+  heading: Got an application that needs a second pair of eyes?
+  text: Happy to talk about security reviews, speaking, or research collaborations.
+  # Until booking exists, "Get in touch" points here.
+  url: https://www.linkedin.com/in/hotanyar/

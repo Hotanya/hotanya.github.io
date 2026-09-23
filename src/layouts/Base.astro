@@ -1,0 +1,89 @@
+---
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '@fontsource/newsreader/500.css';
+import '@fontsource/newsreader/500-italic.css';
+import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Search from '../components/Search.astro';
+import bio from '../assets/bio-photo.jpg';
+import { site } from '../lib/data';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: ImageMetadata;
+  type?: 'website' | 'article';
+  published?: Date;
+  modified?: Date;
+  section?: string;
+  tags?: string[];
+  jsonld?: Record<string, unknown> | Record<string, unknown>[];
+  headerRuled?: boolean;
+}
+const { title, description = site.meta_description, image, type = 'website', published, modified, section, tags, jsonld, headerRuled = false } = Astro.props;
+const fullTitle = title ? `${title} · ${site.name}` : site.name;
+const authorUrl = 'https://hotanya.fyi';
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const og = await getImage({ src: image ?? bio, width: 1200, format: 'jpg' });
+const ogUrl = new URL(og.src, Astro.site);
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  url: 'https://hotanya.fyi',
+  sameAs: [site.links.linkedin, site.links.github],
+};
+---
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <meta name="author" content={site.name} />
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate" type="application/rss+xml" title={site.name} href="/feed.xml" />
+  <meta name="color-scheme" content="light dark" />
+  <meta property="og:type" content={type} />
+  <meta property="og:title" content={title ?? site.name} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogUrl} />
+  <meta property="og:site_name" content={site.name} />
+  {published && <meta property="article:published_time" content={published.toISOString()} />}
+  {type === 'article' && <meta property="article:author" content={authorUrl} />}
+  {modified && <meta property="article:modified_time" content={modified.toISOString()} />}
+  {type === 'article' && section && <meta property="article:section" content={section} />}
+  {type === 'article' && tags?.map((t) => <meta property="article:tag" content={t} />)}
+  <meta name="twitter:card" content="summary_large_image" />
+  <script is:inline>
+    // Set the theme before first paint. No stored choice means follow the system.
+    try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+  <script type="application/ld+json" set:html={JSON.stringify(person)} />
+  {jsonld && (Array.isArray(jsonld) ? jsonld : [jsonld]).map((node) => (
+    <script type="application/ld+json" set:html={JSON.stringify(node)} />
+  ))}
+  <slot name="head" />
+</head>
+<body>
+  <slot name="top" />
+  <div class="wrap">
+    <Header ruled={headerRuled} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </div>
+  <Search />
+</body>
+</html>

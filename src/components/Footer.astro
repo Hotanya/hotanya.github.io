@@ -1,0 +1,11 @@
+---
+import { site } from '../lib/data';
+---
+<footer class="site">
+  <span>© {new Date().getFullYear()} {site.name}</span>
+  <nav aria-label="Elsewhere">
+    <a href="/feed.xml">rss</a>
+    <a href={site.links.github}>github</a>
+    <a href={site.links.linkedin}>linkedin</a>
+  </nav>
+</footer>

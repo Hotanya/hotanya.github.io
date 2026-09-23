@@ -1,0 +1,92 @@
+---
+// Pagefind search. The index is generated after `astro build`, so search only
+// works on built output (`npm run build && npm run preview`), not in `astro dev`.
+---
+<dialog class="search-dlg" id="search" aria-label="Search posts">
+  <form method="dialog" role="search">
+    <label for="search-q" class="sr-only">Search posts</label>
+    <input id="search-q" type="search" placeholder="Search posts" autocomplete="off" />
+    <kbd>esc</kbd>
+  </form>
+  <div class="msg" id="search-msg" hidden></div>
+  <ol id="search-results"></ol>
+</dialog>
+
+<script>
+  type Result = { url: string; excerpt: string; meta: { title?: string; type?: string } };
+  type Pagefind = { search: (q: string) => Promise<{ results: { data: () => Promise<Result> }[] }> };
+
+  const dlg = document.getElementById('search') as HTMLDialogElement;
+  const input = document.getElementById('search-q') as HTMLInputElement;
+  const list = document.getElementById('search-results') as HTMLOListElement;
+  const msg = document.getElementById('search-msg') as HTMLDivElement;
+  let pagefind: Pagefind | null = null;
+  let seq = 0;
+
+  const say = (text: string) => { msg.textContent = text; msg.hidden = !text; };
+
+  async function load(): Promise<Pagefind | null> {
+    if (pagefind) return pagefind;
+    try {
+      const path = '/pagefind/pagefind.js';
+      pagefind = await import(/* @vite-ignore */ path);
+    } catch {
+      say('Search is available on the built site only.');
+    }
+    return pagefind;
+  }
+
+  function open() {
+    dlg.showModal();
+    input.select();
+    load();
+  }
+
+  function render(results: Result[]) {
+    list.replaceChildren(
+      ...results.map((r) => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = r.url;
+        const k = document.createElement('span');
+        k.className = r.meta.type === 'advisory' || r.meta.type === 'disclosure' ? 'k' : 'k g';
+        k.textContent = r.meta.type ?? '';
+        const b = document.createElement('b');
+        b.textContent = r.meta.title ?? r.url;
+        const p = document.createElement('p');
+        // Pagefind excerpts are HTML-escaped text with <mark> highlights.
+        p.innerHTML = r.excerpt;
+        a.append(k, b, p);
+        li.append(a);
+        return li;
+      }),
+    );
+  }
+
+  input.addEventListener('input', async () => {
+    const q = input.value.trim();
+    const mine = ++seq;
+    if (!q) { list.replaceChildren(); say(''); return; }
+    const pf = await load();
+    if (!pf) return;
+    const res = await pf.search(q);
+    const data = await Promise.all(res.results.slice(0, 8).map((r) => r.data()));
+    if (mine !== seq) return;
+    say(data.length ? '' : 'No posts match that.');
+    render(data);
+  });
+
+  // The form is method="dialog" only so Esc/semantics work; pressing Enter must not
+  // submit-and-close the dialog out from under the results the user is about to pick.
+  dlg.querySelector('form')?.addEventListener('submit', (e) => e.preventDefault());
+
+  document.querySelectorAll('[data-search-open]').forEach((b) => b.addEventListener('click', open));
+  document.addEventListener('keydown', (e) => {
+    const t = e.target as HTMLElement;
+    if (e.key === '/' && !dlg.open && !t.closest('input, textarea, [contenteditable]')) {
+      e.preventDefault();
+      open();
+    }
+  });
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+</script>

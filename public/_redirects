@@ -1,0 +1,13 @@
+# Old Jekyll URLs (301). Post URLs (/blog/<slug>/), /posts/ and /feed.xml are unchanged.
+/about           /portfolio/  301
+/about/          /portfolio/  301
+/tags            /posts/      301
+/tags/*          /posts/      301
+/categories      /posts/      301
+/categories/*    /posts/      301
+/page2           /posts/      301
+/page2/          /posts/      301
+/feed            /feed.xml    301
+# Old inline video assets moved under /media/ (kept so existing hotlinks resolve).
+/images/IDOR.mp4       /media/graphql-idor.mp4       301
+/images/injection.mp4  /media/graphql-injection.mp4  301

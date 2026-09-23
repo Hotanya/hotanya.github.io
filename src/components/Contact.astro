@@ -1,0 +1,16 @@
+---
+import { site } from '../lib/data';
+
+interface Props { heading?: string; text?: string }
+const { heading = site.contact.heading, text = site.contact.text } = Astro.props;
+---
+<section class="contact" id="contact">
+  <div>
+    <h2>{heading}</h2>
+    <p>{text}</p>
+  </div>
+  <div class="acts">
+    <a class="btn pri" href={site.contact.url}>Get in touch</a>
+    <a class="btn" href={site.links.github}>GitHub</a>
+  </div>
+</section>

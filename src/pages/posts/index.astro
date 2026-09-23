@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getPosts, postUrl, fullDate, year, isAdvisoryLike, type Post } from '../../lib/posts';
+
+const posts = await getPosts();
+// Filter groups; "Advisories" covers both advisories and disclosures.
+const groups = [
+  { key: 'all', label: 'All', match: (_: Post) => true },
+  { key: 'advisory', label: 'Advisories', match: (p: Post) => isAdvisoryLike(p.data.type) },
+  { key: 'research', label: 'Research', match: (p: Post) => p.data.type === 'research' },
+  { key: 'guide', label: 'Guides', match: (p: Post) => p.data.type === 'guide' },
+  { key: 'note', label: 'Notes', match: (p: Post) => p.data.type === 'note' },
+].map((g) => ({ ...g, count: posts.filter(g.match).length })).filter((g) => g.key === 'all' || g.count > 0);
+
+const filterKey = (p: Post) => (isAdvisoryLike(p.data.type) ? 'advisory' : p.data.type);
+const years = [...new Set(posts.map((p) => year(p.data.date)))];
+---
+<Base title="Writing" description="Vulnerability write-ups, research and guides by Hotanya Ragtah." headerRuled>
+  <div class="page-head">
+    <div class="crumb">writing</div>
+    <h1>Everything I've written</h1>
+  </div>
+
+  <div class="filters" role="toolbar" aria-label="Filter by type">
+    {groups.map((g, i) => (
+      <button type="button" data-filter={g.key} aria-pressed={i === 0 ? 'true' : 'false'}>{g.label}<sup>{g.count}</sup></button>
+    ))}
+  </div>
+
+  {years.map((y) => (
+    <section class="yr" data-year>
+      <h2>{y}</h2>
+      <div>
+        {posts.filter((p) => year(p.data.date) === y).map((p) => (
+          <a class="row" href={postUrl(p)} data-kind={filterKey(p)}>
+            <div>
+              <span class:list={['k', { g: !isAdvisoryLike(p.data.type) }]}>{p.data.type}{p.data.cve && ` · ${p.data.cve}`}</span>
+              <h3>{p.data.title}</h3>
+              <p>{p.data.summary}</p>
+            </div>
+            <span class="d">{fullDate(p.data.date)}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+  {posts.length === 0 && <p class="empty">Nothing published yet.</p>}
+</Base>
+
+<script>
+  const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+  const apply = (key: string) => {
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === key)));
+    document.querySelectorAll<HTMLElement>('[data-kind]').forEach((row) => {
+      row.hidden = key !== 'all' && row.dataset.kind !== key;
+    });
+    // hide a year when none of its posts match
+    document.querySelectorAll<HTMLElement>('[data-year]').forEach((sec) => {
+      sec.hidden = !sec.querySelector('[data-kind]:not([hidden])');
+    });
+  };
+  buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.filter ?? 'all')));
+</script>

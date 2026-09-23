@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import Contact from '../components/Contact.astro';
+import FeatureMedia from '../components/FeatureMedia.astro';
+import { site, portfolio } from '../lib/data';
+import { getPosts, pickFeatured, postUrl, readTime, fullDate, monthYear, isAdvisoryLike, accentEm } from '../lib/posts';
+
+const posts = await getPosts();
+const featured = pickFeatured(posts);
+const rest = posts.filter((p) => p !== featured).slice(0, 4);
+const yy = (y: number) => `'${String(y).slice(-2)}`;
+---
+<Base>
+  <section class="hero">
+    <h1 set:html={accentEm(site.headline)} />
+    <p>{site.description}</p>
+    <p class="quiet">{site.name} · {site.role}</p>
+  </section>
+
+  {featured && (
+    <>
+      <div class="sh"><span>featured</span><a href="/posts/">all writing →</a></div>
+      <a class="feat" href={postUrl(featured)}>
+        <FeatureMedia post={featured} />
+        <div class="txt">
+          <span class="d">{fullDate(featured.data.date)} · {readTime(featured.body)} min read</span>
+          <h2 class="serif">{featured.data.title}</h2>
+          <p>{featured.data.summary}</p>
+          {featured.data.tags.length > 0 && <div class="tags">{featured.data.tags.map((t) => <span>{t}</span>)}</div>}
+        </div>
+      </a>
+    </>
+  )}
+
+  {rest.length > 0 && (
+    <div class="idx">
+      {rest.map((p) => (
+        <a href={postUrl(p)}>
+          <span class:list={['k', { g: !isAdvisoryLike(p.data.type) }]}>{p.data.type} · {monthYear(p.data.date)}</span>
+          <h3>{p.data.title}</h3>
+          <p>{p.data.summary}</p>
+        </a>
+      ))}
+    </div>
+  )}
+
+  <div class="strip">
+    <b>Talks</b>
+    {portfolio.talks.map((t) => (
+      <a href="/portfolio/#talks">{t.short}<em>{t.venue_short ?? t.venue} {yy(t.year)}</em></a>
+    ))}
+  </div>
+
+  <Contact />
+</Base>

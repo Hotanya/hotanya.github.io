@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Page not found" description="That page doesn't exist, or it moved when the site was rebuilt." headerRuled>
+  <meta name="robots" content="noindex" slot="head" />
+  <div class="page-head" style="min-height: 46vh">
+    <div class="crumb">404</div>
+    <h1>Page not found</h1>
+    <p style="color: var(--ink2); margin-top: 20px; font-size: 18px; max-width: 56ch">
+      That page doesn't exist, or it moved when the site was rebuilt.
+    </p>
+    <div class="acts" style="margin-top: 28px">
+      <a class="btn pri" href="/posts/">Browse writing</a>
+      <a class="btn" href="/portfolio/">Portfolio</a>
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,25 @@
+---
+// Feature-slot media, resolved in order (spec §5.3):
+// 1. `image`: framed on the surface  2. `cover`: text cover  3. fallback: the title as a text cover.
+import { Image } from 'astro:assets';
+import { coverHtml, isAdvisoryLike, type Post } from '../lib/posts';
+
+interface Props { post: Post }
+const { post } = Astro.props;
+const { type, image, image_alt, cover, cve, advisory, title } = post.data;
+const adv = isAdvisoryLike(type);
+const tag = cve ?? advisory?.project ?? '';
+---
+{image ? (
+  <div class:list={['media', 'shot-media', { adv }]}>
+    <div class="tl"><span>{type}</span>{tag && <span class="id">{tag}</span>}</div>
+    <Image src={image} alt={image_alt ?? ''} widths={[480, 720, 960]} sizes="(max-width: 700px) 90vw, 640px" loading="eager" />
+  </div>
+) : (
+  <div class="media">
+    <div class:list={['cov', { adv, grid: type === 'research' }]}>
+      <div class="tl"><span>{type}</span>{tag && <span class="id">{tag}</span>}</div>
+      <div class="pl" set:html={coverHtml(cover ?? title)} />
+    </div>
+  </div>
+)}

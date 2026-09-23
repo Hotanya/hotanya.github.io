@@ -1,0 +1,40 @@
+---
+import { site } from '../lib/data';
+
+interface Props { ruled?: boolean }
+const { ruled = false } = Astro.props;
+const path = Astro.url.pathname;
+// Only the home page has its own contact block; every other page (posts, blog, 404, …) links to it.
+const contactHref = path === '/' ? '#contact' : '/#contact';
+const section = path.startsWith('/portfolio') ? 'portfolio' : path === '/' || path.startsWith('/posts') || path.startsWith('/blog') ? 'writing' : '';
+---
+<header class:list={['site', { ruled }]}>
+  <a class="brand" href="/"><span class="mark" aria-hidden="true">hr</span><span class="nm">{site.name}</span></a>
+  <div class="navr">
+    <nav class="main" aria-label="Main">
+      <a href="/posts/" aria-current={section === 'writing' ? 'page' : undefined}>Writing</a>
+      <a class="opt" href="/portfolio/#talks">Talks</a>
+      <a href="/portfolio/" aria-current={section === 'portfolio' ? 'page' : undefined}>Portfolio</a>
+      <a class="opt" href={contactHref}>Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="tog" type="button" data-search-open aria-label="Search posts (press /)">
+        <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.5" /><path d="M11 11l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+      </button>
+      <button class="tog" type="button" data-theme-toggle aria-label="Toggle colour theme">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5" /><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor" /></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  btn?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const current = root.dataset.theme ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try { localStorage.setItem('theme', next); } catch {}
+  });
+</script>

@@ -1,0 +1,95 @@
+---
+title: Self-XSS in Stirling-PDF's merge feature
+date: 2025-01-09T13:37:00+12:00
+type: advisory
+summary: Unsanitised PDF file names were rendered straight into the result page, so HTML and JavaScript in a file name got executed.
+tags: [xss, open-source, appsec]
+featured: true
+cve: CVE-2024-52286
+image: ./local-xss.png
+image_alt: Stirling-PDF merge page showing an alert(1) dialog
+cover: "**<img src=x onerror=alert(1)>**.pdf"
+advisory:
+  ghsa: GHSA-9j55-gvf2-cqwv
+  project: Stirling-PDF
+  component: merge.js
+  status: "Fixed · PR #2189"
+  links:
+    cve: https://www.cve.org/CVERecord?id=CVE-2024-52286
+    ghsa: https://github.com/Stirling-Tools/Stirling-PDF/security/advisories/GHSA-9j55-gvf2-cqwv
+timeline:
+  - { date: 10 Sep 2024, event: Reported to maintainer }
+  - { date: Nov 2024, event: "Fix merged · PR #2189" }
+  - { date: 09 Jan 2025, event: Published }
+slug: self-xss-in-stirling-pdf-cve-2024-52286
+---
+
+While reviewing the Stirling-PDF (https://github.com/Stirling-Tools/Stirling-PDF/) application, I identified a vulnerability in the “Merge PDF” functionality which allowed  users to execute arbitrary JavaScript code, within their own context. This issue stemmed from improper handling of untrusted user input, specifically the file names, during the creation of resulting HTML page. This was later assigned a CVE ID - [CVE-2024-52286](https://nvd.nist.gov/vuln/detail/CVE-2024-52286)
+
+Let’s break down the problem, its impact, and how to address it.
+
+## The Vulnerability
+
+The vulnerability lies in the application’s merge functionality, which does not sanitise the file names of the PDF’s being merged. Thus when they are shown on the HTML page, they are used directly as it is, and result in HTML tags and JavaScript code to be executed.
+
+### Technical Details
+
+The problem originated from the following code snippet in `src/main/resources/static/js/merge.js`, starting at Line 24:
+
+```js title="merge.js" ln=24
+document.getElementById("filename").innerHTML = userInputFileName;
+```
+
+Here, the `userInputFileName` variable is inserted directly into the `innerHTML` property, with no sanitisation or validation. This enables attackers to upload files with names containing malicious HTML or JavaScript code, which is then executed in the user’s browser.
+
+### Proof of Concept (PoC)
+
+To reproduce this vulnerability, I used the following PoC steps:
+
+1. Created a file named `<img src=x onerror=alert(1)>.pdf`.
+2. Navigated to the Merge PDF page and uploaded the file.
+3. This resulted in the JavaScript code to be executed, displaying an alert box with the number “1”.
+
+![Payload executing on a local instance](./local-xss.png)
+
+This issue was also found to be exploitable on the Stirling PDF website at [stirlingpdf.io/merge-pdfs](https://stirlingpdf.io/merge-pdfs):
+
+![The same payload on stirlingpdf.io](./remote-xss.png)
+### The Impact
+
+This is a self-injection style attack and relies on a user uploading the malicious file themselves and it impact only them, not other users. A user might be social engineered into running this to launch a phishing attack. Nevertheless, this breaks the expected security restrictions in place by the application.
+
+### Mitigation and Remediation
+
+To prevent such vulnerabilities, developers should follow these best practices:
+
+1. Sanitise User Input
+	
+	Treat all user input as untrusted. Apply proper sanitisation, such as encoding special characters, to prevent malicious code execution. For instance, instead of using `innerHTML`, use `textContent` to safely display file names:
+	
+	`document.getElementById("filename").textContent = userInputFileName;`
+
+2. Avoid Directly Using `innerHTML`
+
+	Refrain from directly assigning untrusted user input to the innerHTML property, as it can execute scripts embedded in the input.
+
+3. Use Security Libraries
+
+	Implement libraries or frameworks designed to handle untrusted input safely, such as `DOMPurify` or similar tools for sanitization.
+
+4. Educate Users
+
+	Inform users about the risks of uploading files with suspicious names, and provide warnings where applicable.
+
+
+### Closing Thoughts
+
+This vulnerability highlights the importance of secure coding practices, especially when dealing with untrusted input. By following proper input handling practices and regularly reviewing code for security flaws, developers can ensure that their applications remain safe for all users.
+
+This issue was identified and reported to the maintainer on the 10th of September 2024. I raised a pull request with a fix for this (https://github.com/Stirling-Tools/Stirling-PDF/pull/2189) which was accepted and merged in November 2024. I was also assigned [CVE-2024-52286](https://nvd.nist.gov/vuln/detail/CVE-2024-52286) for this vulnerability.
+
+### References
+
+* <https://github.com/Stirling-Tools/Stirling-PDF/security/advisories/GHSA-9j55-gvf2-cqwv>
+* <https://www.cve.org/CVERecord?id=CVE-2024-52286>
+* <https://github.com/Stirling-Tools/Stirling-PDF/pull/2189>

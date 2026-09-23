@@ -1,0 +1,78 @@
+/* Shared mockup styles: Mist + oxblood */
+:root { --bg:#efeef2; --surface:#e5e3ea; --surface2:#dcdae3; --rule:#d8d6de; --ink:#19181d; --ink2:#4e4c56; --ink3:#817f8a; --acc:#942c30; --acc-soft:rgba(148,44,48,.07); color-scheme: light; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#17161b; --surface:#1f1e24; --surface2:#27262e; --rule:#2e2d35; --ink:#e9e8ee; --ink2:#a6a4ae; --ink3:#75737e; --acc:#e2848a; --acc-soft:rgba(226,132,138,.08); color-scheme: dark; } }
+:root[data-theme="dark"] { --bg:#17161b; --surface:#1f1e24; --surface2:#27262e; --rule:#2e2d35; --ink:#e9e8ee; --ink2:#a6a4ae; --ink3:#75737e; --acc:#e2848a; --acc-soft:rgba(226,132,138,.08); color-scheme: dark; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.65 "IBM Plex Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; transition: background .2s, color .2s; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--acc); color: var(--bg); }
+.wrap { max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 64px); }
+.serif { font-family: "Newsreader", Georgia, serif; font-weight: 500; letter-spacing: -.015em; }
+.k { font: 500 11.5px "IBM Plex Mono", monospace; color: var(--acc); letter-spacing: .03em; }
+.k.g { color: var(--ink3); }
+.d { font: 400 12.5px "IBM Plex Mono", monospace; color: var(--ink3); }
+.tags { display: flex; gap: 12px; font: 400 12px "IBM Plex Mono", monospace; color: var(--ink3); }
+.tags span::before { content: "#"; opacity: .6; }
+
+/* header */
+header.site { display: flex; justify-content: space-between; align-items: center; padding: 26px 0; }
+.brand { display: flex; align-items: center; gap: 11px; font-weight: 600; font-size: 15.5px; }
+.mark { width: 28px; height: 28px; border-radius: 6px; background: var(--ink); color: var(--bg); display: grid; place-items: center; font: 600 12.5px "IBM Plex Mono", monospace; }
+.navr { display: flex; align-items: center; gap: 28px; }
+nav.main { display: flex; gap: 26px; font-size: 14.5px; color: var(--ink2); }
+nav.main a:hover { color: var(--ink); }
+nav.main a.on { color: var(--ink); box-shadow: inset 0 -2px 0 var(--acc); padding-bottom: 3px; }
+.tog { width: 32px; height: 32px; border-radius: 6px; border: 1px solid var(--rule); background: transparent; color: var(--ink2); display: grid; place-items: center; cursor: pointer; }
+.tog:hover { color: var(--ink); border-color: var(--ink3); }
+
+/* hero */
+.hero { padding: 72px 0 80px; max-width: 980px; }
+.hero h1 { font-family: "Newsreader", Georgia, serif; font-weight: 500; font-size: clamp(34px, 5vw, 60px); line-height: 1.08; letter-spacing: -.02em; }
+.hero h1 em { color: var(--acc); }
+.hero p { color: var(--ink2); margin-top: 24px; font-size: 18px; max-width: 56ch; }
+.hero .quiet { margin-top: 18px; font: 400 13px "IBM Plex Mono", monospace; color: var(--ink3); }
+
+.sh { display: flex; justify-content: space-between; align-items: baseline; font: 500 12.5px "IBM Plex Mono", monospace; color: var(--ink3); padding-bottom: 12px; border-bottom: 1px solid var(--rule); margin-bottom: 0; }
+.sh a { color: var(--ink2); } .sh a:hover { color: var(--acc); }
+
+/* generated covers — neutral for every type; oxblood only as detail */
+.cov { position: relative; border-radius: 8px; overflow: hidden; background: var(--surface); display: flex; flex-direction: column; justify-content: space-between; gap: 14px; padding: 18px 20px; font-family: "IBM Plex Mono", monospace; color: var(--ink2); }
+.cov .tl { display: flex; justify-content: space-between; gap: 12px; font-size: 10.5px; color: var(--ink3); letter-spacing: .05em; text-transform: uppercase; }
+.cov .pl { font-size: 13.5px; line-height: 1.55; word-break: break-word; color: var(--ink2); }
+.cov .pl i { font-style: normal; color: var(--acc); }
+.cov .pl s { text-decoration: none; opacity: .5; }
+.cov.adv { box-shadow: inset 0 2px 0 var(--acc); }
+.cov.adv .id { font: 500 12px "IBM Plex Mono", monospace; color: var(--acc); letter-spacing: .02em; }
+.cov.grid { background-image: linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px); background-size: 22px 22px; }
+.cov.talk { background-image: radial-gradient(var(--rule) 1px, transparent 1.2px); background-size: 12px 12px; }
+.cov.talk .big { font-family: "Newsreader", serif; font-weight: 500; font-size: 30px; line-height: 1.05; letter-spacing: -.02em; color: var(--ink); }
+
+/* contact + footer */
+.contact { margin-top: 96px; border-top: 1px solid var(--rule); padding-top: 40px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: end; }
+.contact h2 { font-family: "Newsreader", Georgia, serif; font-weight: 500; font-size: 32px; line-height: 1.2; letter-spacing: -.012em; }
+.contact p { color: var(--ink2); margin-top: 10px; }
+.contact .acts { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 11px 18px; border-radius: 7px; font-weight: 500; font-size: 14.5px; border: 1px solid var(--rule); }
+.btn:hover { border-color: var(--acc); color: var(--acc); }
+.btn.pri { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn.pri:hover { background: var(--acc); border-color: var(--acc); color: var(--bg); }
+footer.site { border-top: 1px solid var(--rule); margin-top: 56px; padding: 26px 0 90px; display: flex; justify-content: space-between; gap: 20px; font: 400 12.5px "IBM Plex Mono", monospace; color: var(--ink3); flex-wrap: wrap; }
+footer.site nav { display: flex; gap: 20px; } footer.site a:hover { color: var(--acc); }
+
+/* mockup switcher */
+.mswitch { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 50; display: flex; gap: 2px; padding: 4px; border-radius: 999px; background: var(--ink); box-shadow: 0 8px 24px rgba(0,0,0,.2); font: 500 12px "IBM Plex Mono", monospace; }
+.mswitch a { color: var(--bg); opacity: .65; padding: 7px 13px; border-radius: 999px; white-space: nowrap; }
+.mswitch a:hover { opacity: 1; }
+.mswitch a.on { opacity: 1; background: color-mix(in srgb, var(--bg) 18%, transparent); }
+
+@media (max-width: 760px) {
+  nav.main { gap: 16px; font-size: 14px; }
+  .brand .nm { display: none; }
+  .hero { padding: 36px 0 52px; }
+  .contact { grid-template-columns: 1fr; gap: 24px; margin-top: 72px; }
+  .contact .acts { justify-content: flex-start; }
+  .mswitch a { padding: 7px 9px; }
+  .mswitch .lbl { display: none; }
+}

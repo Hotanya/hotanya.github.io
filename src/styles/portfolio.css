@@ -1,0 +1,80 @@
+/* Portfolio page. */
+.intro { display: grid; grid-template-columns: 1.5fr 1fr; gap: 72px; padding: 64px 0 72px; align-items: end; }
+.intro h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(36px, 4.8vw, 58px); line-height: 1.06; letter-spacing: -.022em; margin-top: 16px; }
+.intro p { color: var(--ink2); font-size: 18px; margin-top: 22px; max-width: 58ch; }
+.intro .acts { margin-top: 28px; }
+.intro figure .fr { background: var(--surface); border-radius: 10px; padding: 22px; background-image: radial-gradient(var(--rule) 1px, transparent 1.2px); background-size: 14px 14px; }
+.intro figure img { width: 100%; height: auto; aspect-ratio: 5/4; object-fit: cover; object-position: 50% 28%; border-radius: 6px; display: block; box-shadow: 0 14px 38px rgba(20, 18, 30, .16); }
+.intro figcaption { font: 400 12px var(--mono); color: var(--ink3); margin-top: 10px; display: flex; justify-content: space-between; }
+
+.jump { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); display: flex; gap: 28px; padding: 12px 0; font: 400 13px var(--mono); color: var(--ink3); overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+.jump a:hover { color: var(--ink); }
+.jump a.on { color: var(--acc); }
+.jump a i { font-style: normal; opacity: .6; margin-right: 6px; }
+
+.sec { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 56px; padding: 56px 0; border-bottom: 1px solid var(--rule); scroll-margin-top: 50px; }
+.sec:last-of-type { border-bottom: 0; }
+.sec > h2 { font: 500 13px var(--mono); color: var(--ink3); position: sticky; top: 72px; align-self: start; }
+.sec > h2 i { font-style: normal; color: var(--acc); margin-right: 10px; }
+.sec > h2 small { display: block; font-weight: 400; margin-top: 8px; font-size: 12px; line-height: 1.5; max-width: 22ch; }
+
+.job { display: grid; grid-template-columns: 170px 1fr; gap: 32px; padding: 22px 0; border-top: 1px solid var(--rule); }
+.job:first-child { border-top: 0; padding-top: 0; }
+.job .when { font: 400 12.5px var(--mono); color: var(--ink3); padding-top: 4px; }
+.job .when b { display: block; font-weight: 500; color: var(--acc); }
+.job h3 { font-size: 20px; font-weight: 500; letter-spacing: -.008em; line-height: 1.3; }
+.job h3 span { color: var(--ink3); font-weight: 400; }
+.job p { color: var(--ink2); margin-top: 6px; max-width: 70ch; }
+.job ul { margin-top: 10px; list-style: none; max-width: 72ch; }
+.job li { position: relative; padding-left: 18px; color: var(--ink2); font-size: 15.5px; margin-top: 4px; }
+.job li::before { content: "–"; position: absolute; left: 0; color: var(--ink3); }
+.job details { margin-top: 10px; }
+.job summary { cursor: pointer; font: 500 12.5px var(--mono); color: var(--ink2); list-style: none; display: inline-flex; gap: 8px; }
+.job summary::-webkit-details-marker { display: none; }
+.job summary::before { content: "+"; color: var(--acc); }
+.job details[open] summary::before { content: "−"; }
+.job summary:hover { color: var(--acc); }
+
+.disc { width: 100%; border-collapse: collapse; font-size: 15.5px; }
+.disc th { text-align: left; font: 400 11px var(--mono); color: var(--ink3); text-transform: uppercase; letter-spacing: .06em; padding: 0 16px 10px 0; border-bottom: 1px solid var(--rule); }
+.disc td { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--rule); vertical-align: baseline; }
+.disc td.m { font: 400 13px var(--mono); color: var(--ink2); white-space: nowrap; }
+.disc td.id { font: 500 13px var(--mono); color: var(--acc); white-space: nowrap; }
+.disc td.id.none { color: var(--ink3); }
+.disc td a { box-shadow: inset 0 -1px 0 var(--rule); } .disc td a:hover { color: var(--acc); box-shadow: inset 0 -1px 0 var(--acc); }
+.disc .st { font: 400 12px var(--mono); color: var(--ink3); }
+
+.talk { display: grid; grid-template-columns: 70px 1fr auto; gap: 28px; padding: 18px 0; border-top: 1px solid var(--rule); align-items: baseline; }
+.talk:first-child { border-top: 0; padding-top: 0; }
+.talk .y { font: 400 13px var(--mono); color: var(--ink3); }
+.talk h3 { font-family: var(--serif); font-weight: 500; font-size: 24px; line-height: 1.2; letter-spacing: -.012em; }
+.talk p { color: var(--ink3); font-size: 14.5px; margin-top: 3px; }
+.talk .lk { display: flex; gap: 14px; font: 400 12.5px var(--mono); color: var(--ink2); white-space: nowrap; }
+.talk .lk a { box-shadow: inset 0 -1px 0 var(--rule); } .talk .lk a:hover { color: var(--acc); box-shadow: inset 0 -1px 0 var(--acc); }
+
+.runin p { font-size: 25px; line-height: 1.45; letter-spacing: -.01em; padding: 14px 0; border-top: 1px solid var(--rule); color: var(--ink2); }
+.runin p:first-child { border-top: 0; padding-top: 0; }
+.runin p b { font-family: var(--serif); font-style: italic; font-weight: 500; color: var(--acc); margin-right: .35em; }
+.runin p span { color: var(--ink); font-weight: 500; transition: color .12s; }
+.runin p span:hover { color: var(--acc); }
+
+.cert { display: grid; grid-template-columns: 1fr auto; gap: 24px; padding: 14px 0; border-top: 1px solid var(--rule); align-items: baseline; }
+.cert:first-child { border-top: 0; padding-top: 0; }
+.cert b { font-weight: 500; font-size: 16.5px; }
+.cert span { color: var(--ink3); font-size: 14.5px; margin-left: 8px; }
+.cert em { font: 400 12px var(--mono); font-style: normal; color: var(--ink3); white-space: nowrap; }
+.cert em::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid var(--acc); margin-right: 7px; vertical-align: 1px; }
+
+@media (max-width: 860px) {
+  .intro { grid-template-columns: 1fr; gap: 36px; padding: 36px 0 48px; }
+  .intro figure { max-width: 420px; }
+  .sec { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 40px 0; }
+  .sec > h2 { position: static; }
+  .sec > h2 small { max-width: none; }
+  .job, .talk { grid-template-columns: 1fr; gap: 4px; }
+  .runin p { font-size: 21px; }
+  .disc thead { display: none; }
+  .disc, .disc tbody, .disc tr, .disc td { display: block; }
+  .disc tr { padding: 12px 0; border-bottom: 1px solid var(--rule); }
+  .disc td { border: 0; padding: 2px 0; }
+}

@@ -1,0 +1,156 @@
+---
+import { render } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import bio from '../../assets/bio-photo.jpg';
+import { site } from '../../lib/data';
+import { getPosts, postUrl, readTime, fullDate, isAdvisoryLike, type Post } from '../../lib/posts';
+import { articleLd, breadcrumbLd } from '../../lib/seo';
+import '../../styles/post.css';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  // posts are newest first: index + 1 is older, index - 1 is newer
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, older: posts[i + 1], newer: posts[i - 1] },
+  }));
+}
+
+interface Props { post: Post; older?: Post; newer?: Post }
+const { post, older, newer } = Astro.props;
+const { data } = post;
+const { Content, headings } = await render(post);
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const adv = data.advisory;
+const facts = [
+  data.cve && { dt: 'CVE', dd: data.cve, href: adv?.links?.cve ?? `https://www.cve.org/CVERecord?id=${data.cve}`, acc: true },
+  adv?.ghsa && { dt: 'Advisory', dd: adv.ghsa, href: adv.links?.ghsa },
+  adv?.project && { dt: 'Project', dd: adv.project },
+  adv?.component && { dt: 'Component', dd: adv.component },
+  adv?.status && { dt: 'Status', dd: adv.status },
+].filter(Boolean) as { dt: string; dd: string; href?: string; acc?: boolean }[];
+// Skip the lead figure when the body already embeds the same image file (it's usually Fig. 1).
+// Match the full "name.ext" so prose words like "risk." or "query." don't count as a match.
+const imageName = data.image?.src.split('?')[0].split('/').pop()?.split('.')[0];
+const imageFile = imageName && data.image ? `${imageName}.${data.image.format}` : undefined;
+const showLeadImage = !!data.image && !(imageFile && post.body?.includes(imageFile));
+const url = new URL(Astro.url.pathname, Astro.site).toString();
+const folder = post.filePath?.split('/').slice(-2, -1)[0];
+const editUrl = folder ? `${site.repo}/edit/master/src/content/posts/${folder}/index.md` : site.repo;
+const linkedinShare = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+// Absolute URL of the optimized OG image, mirroring Base.astro's getImage approach.
+const og = await getImage({ src: data.image ?? bio, width: 1200, format: 'jpg' });
+const ogImage = new URL(og.src, Astro.site).toString();
+const jsonld = [
+  articleLd(post, { url, image: ogImage }),
+  breadcrumbLd([
+    { name: 'Home', url: new URL('/', Astro.site).toString() },
+    { name: 'Writing', url: new URL('/posts/', Astro.site).toString() },
+    { name: data.title, url },
+  ]),
+];
+---
+<Base title={data.title} description={data.summary} image={data.image} type="article" published={data.date} modified={data.date} section={data.type} tags={data.tags} jsonld={jsonld} headerRuled>
+  <div class="progress" id="prog" slot="top" aria-hidden="true"></div>
+
+  <div class="ahead">
+    <div class="crumb"><a href="/posts/">writing</a><span>/</span><span class:list={['k', { g: !isAdvisoryLike(data.type) }]}>{data.type}</span></div>
+    <h1>{data.title}</h1>
+    <p class="lead">{data.summary}</p>
+    <div class="meta">
+      <span class="by"><Image src={bio} alt="" width={52} height={52} />{site.name}</span>
+      <time datetime={data.date.toISOString()}>{fullDate(data.date)}</time>
+      <span>{readTime(post.body)} min read</span>
+      {data.tags.length > 0 && <span class="tags">{data.tags.map((t) => <span>{t}</span>)}</span>}
+    </div>
+  </div>
+
+  {facts.length > 0 && (
+    <dl class="facts">
+      {facts.map((f) => (
+        <div><dt>{f.dt}</dt><dd class:list={{ acc: f.acc }}>{f.href ? <a href={f.href}>{f.dd}</a> : f.dd}</dd></div>
+      ))}
+    </dl>
+  )}
+
+  <div class="layout">
+    <article class="prose" data-pagefind-body>
+      <span hidden data-pagefind-meta="title">{data.title}</span>
+      <span hidden data-pagefind-meta="type">{data.type}</span>
+      {showLeadImage && data.image && (
+        <figure class="shot lead-fig">
+          <div class="fr"><Image src={data.image} alt={data.image_alt ?? ''} widths={[480, 720, 1080]} sizes="(max-width: 760px) 90vw, 720px" /></div>
+        </figure>
+      )}
+      <Content />
+    </article>
+
+    <aside class="rail" aria-label="On this page">
+      {toc.length > 0 && (
+        <div class="toc-wrap">
+          <h2>On this page</h2>
+          <nav class="toc" id="toc">
+            {toc.map((h) => <a class:list={{ sub: h.depth === 3 }} href={`#${h.slug}`}>{h.text}</a>)}
+          </nav>
+        </div>
+      )}
+      {data.timeline && (
+        <div class="tline">
+          <h2>Disclosure timeline</h2>
+          <ul>{data.timeline.map((e) => <li><span>{e.date}</span><b>{e.event}</b></li>)}</ul>
+        </div>
+      )}
+      <div class="share">
+        <button type="button" data-copy-link={url}>copy link</button>
+        <a href={linkedinShare}>linkedin</a>
+        <a href={editUrl}>edit on github</a>
+      </div>
+    </aside>
+  </div>
+
+  <div class="author">
+    <Image src={bio} alt="" width={104} height={104} />
+    <p><b>{site.name}</b> is a {site.role}. <a href="/portfolio/">More about me</a> or <a href={site.contact.url}>get in touch</a>.</p>
+  </div>
+  {(older || newer) && (
+    <nav class="endm" aria-label="More posts">
+      {older && <a href={postUrl(older)}><span>← older</span><b>{older.data.title}</b></a>}
+      {newer && <a class="nx" href={postUrl(newer)}><span>newer →</span><b>{newer.data.title}</b></a>}
+    </nav>
+  )}
+</Base>
+
+<script>
+  // reading progress + active TOC entry
+  const prog = document.getElementById('prog');
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('#toc a')];
+  const heads = links.map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1))));
+  const onScroll = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    if (prog) prog.style.width = `${max > 0 ? (h.scrollTop / max) * 100 : 0}%`;
+    let cur = -1;
+    heads.forEach((el, i) => { if (el && el.getBoundingClientRect().top < 120) cur = i; });
+    links.forEach((a, i) => a.classList.toggle('on', i === cur));
+  };
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const copy = async (text: string, btn: HTMLElement, done = 'copied') => {
+    const label = btn.textContent;
+    try { await navigator.clipboard.writeText(text); btn.textContent = done; } catch { btn.textContent = 'press ctrl+c'; }
+    setTimeout(() => (btn.textContent = label), 1400);
+  };
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const code = btn.closest('.code')?.querySelector('code');
+      if (!code) return;
+      const text = [...code.querySelectorAll('.line')].map((l) => [...l.childNodes].filter((n) => !(n instanceof HTMLElement && n.classList.contains('ln'))).map((n) => n.textContent).join('')).join('\n');
+      copy(text || code.textContent || '', btn);
+    }),
+  );
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-link]').forEach((btn) =>
+    btn.addEventListener('click', () => copy(btn.dataset.copyLink ?? location.href, btn, 'link copied')),
+  );
+</script>

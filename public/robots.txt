@@ -1,0 +1,5 @@
+# https://hotanya.fyi
+User-agent: *
+Allow: /
+
+Sitemap: https://hotanya.fyi/sitemap-index.xml
