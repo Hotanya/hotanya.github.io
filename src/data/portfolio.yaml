@@ -117,23 +117,27 @@ talks:
 
 # Run-in skills: the label runs into the sentence. Wrap each skill name in [square brackets].
 skills:
-  - label: Offensive testing
-    text: "[web applications], [APIs], [iOS] and [Android], [networks] and [Active Directory]."
+  - label: Offensive Testing
+    text: "[Web Applications], [APIs], [iOS] and [Android], [Internal and External Networks] and [Active Directory]."
   - label: Cloud
-    text: "[AWS] and [Azure] security reviews."
-  - label: AppSec programme
-    text: "[vulnerability management], [SAST, DAST and SCA] in CI/CD, and [threat modelling]."
+    text: "[AWS] and [Azure] Security Reviews."
+  - label: AppSec Programme
+    text: "[Vulnerability Management], [SAST, DAST and SCA] in CI/CD, and [Threat Modelling]."
   - label: Code
-    text: "[source code review], [Python] and [Bash]."
+    text: "[Source Code Review], [Python], [Bash], [PHP], [C#]."
+  - label: AI
+    text: "[Prompt Injection], [LLM Penetration Testing] and ['Secure' Vibe Coding]."
 
 certs:
+  - acronym: AI-RTA
+    name: Certified AI Red Team Analyst, Cyberwarfare Labs
   - acronym: CAPen
-    name: Certified AppSec Pentester
+    name: SecOps Group, Certified AppSec Pentester
   - acronym: CCSP-AWS
-    name: Certified Cloud Security Practitioner, AWS
+    name: SecOps Group, Certified Cloud Security Practitioner
   - acronym: OSCP
-    name: Offensive Security, PEN-200
+    name: PEN-200, Offensive Security
     in_progress: true
   - acronym: CRTO
-    name: Red Team Ops, Zero Point Security
+    name: Certified Red Team Ops, Zero Point Security
     in_progress: true
