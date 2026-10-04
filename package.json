@@ -15,7 +15,7 @@
     "@fontsource/ibm-plex-mono": "^5.3.0",
     "@fontsource/ibm-plex-sans": "^5.3.0",
     "@fontsource/newsreader": "^5.3.0",
-    "astro": "^7.3.4",
+    "astro": "^7.3.5",
     "github-slugger": "^2.0.0",
     "mdast-util-to-string": "^4.0.0",
     "unist-util-visit": "^5.1.0",
