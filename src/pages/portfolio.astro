@@ -110,7 +110,7 @@ const jsonld = breadcrumbLd([
     <h2><i>05</i>Certifications</h2>
     <div>
       {certs.map((c) => (
-        <div class="cert"><div><b>{c.acronym}</b><span>{c.name}</span></div>{c.in_progress && <em>in progress</em>}</div>
+        <div class="cert"><div><b>{c.url ? <a href={c.url}>{c.acronym}</a> : c.acronym}</b><span>{c.name}</span></div>{c.in_progress && <em>in progress</em>}</div>
       ))}
     </div>
   </section>

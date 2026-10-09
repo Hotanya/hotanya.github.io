@@ -129,6 +129,9 @@ skills:
     text: "[Prompt Injection], [LLM Penetration Testing] and ['Secure' Vibe Coding]."
 
 certs:
+  - acronym: BSCP
+    name: Burp Suite Certified Practitioner, PortSwigger
+    url: https://portswigger.net/web-security/e/c/5dd6303e04a95e36
   - acronym: AI-RTA
     name: Certified AI Red Team Analyst, Cyberwarfare Labs
   - acronym: CAPen
