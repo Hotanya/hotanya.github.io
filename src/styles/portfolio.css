@@ -61,6 +61,7 @@
 .cert { display: grid; grid-template-columns: 1fr auto; gap: 24px; padding: 14px 0; border-top: 1px solid var(--rule); align-items: baseline; }
 .cert:first-child { border-top: 0; padding-top: 0; }
 .cert b { font-weight: 500; font-size: 16.5px; }
+.cert b a { color: inherit; }
 .cert span { color: var(--ink3); font-size: 14.5px; margin-left: 8px; }
 .cert em { font: 400 12px var(--mono); font-style: normal; color: var(--ink3); white-space: nowrap; }
 .cert em::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; border: 1.5px solid var(--acc); margin-right: 7px; vertical-align: 1px; }

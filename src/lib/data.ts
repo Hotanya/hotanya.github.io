@@ -48,7 +48,7 @@ const Portfolio = z.object({
     }),
   ),
   skills: z.array(z.object({ label: z.string(), text: z.string() })),
-  certs: z.array(z.object({ acronym: z.string(), name: z.string(), in_progress: z.boolean().default(false) })),
+  certs: z.array(z.object({ acronym: z.string(), name: z.string(), url: z.string().optional(), in_progress: z.boolean().default(false) })),
 });
 
 const load = <T extends z.ZodType>(schema: T, raw: string, file: string): z.infer<T> => {
